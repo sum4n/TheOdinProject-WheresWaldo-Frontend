@@ -1,5 +1,5 @@
-function DropDownMenu() {
-  return <p>Hello I'm a Dropdown Menu</p>;
+function DropDownMenu({ style }) {
+  return <div style={style}>Hello </div>;
 }
 
 export default DropDownMenu;
