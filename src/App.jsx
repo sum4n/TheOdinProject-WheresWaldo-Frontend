@@ -8,22 +8,36 @@ import DropDownMenu from "./components/DropDownMenu/DropDownMenu";
 function App() {
   const [showDropDown, setShowDropDown] = useState(false);
   const [clickPosition, setClickPosition] = useState({ left: 0, top: 0 });
+  const [pixelPosition, setPixelPosition] = useState({ left: 0, top: 0 });
 
   function clickImgHandler(e) {
+    // Toggle dropdown visibility
     setShowDropDown((prev) => !prev);
 
     const img = e.currentTarget;
     const rect = img.getBoundingClientRect();
 
-    // console.log(rect);
-
     // Calculate click postion relative to the displayed image
-    // console.log(img);
-    // console.log(e.clientX, e.clientY);
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    console.log(`Clicked position: ${x}px X, ${y}px Y`);
+
     setClickPosition({ left: x, top: y });
+
+    // Calculate click position relative to the natural image resolution
+    const scaleX = img.naturalWidth / rect.width;
+    const scaleY = img.naturalHeight / rect.height;
+
+    const actualX = Math.round(x * scaleX);
+    const actualY = Math.round(y * scaleY);
+
+    setPixelPosition({ left: actualX, top: actualY });
+
+    // console.log(img);
+    // console.log(rect);
+    // console.log(e.clientX, e.clientY);
+    // console.log(`Clicked position: ${x}px X, ${y}px Y`);
+    // console.log({ scaleX, scaleY });
+    // console.log(`The actual click position: ${actualX}px X, ${actualY}px Y`);
   }
 
   return (
