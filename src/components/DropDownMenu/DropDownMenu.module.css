@@ -1,0 +1,22 @@
+.container {
+  background-color: azure;
+  display: flex;
+  flex-direction: column;
+}
+
+.selection {
+  /* background-color: azure; */
+  color: black;
+  height: 80px;
+  width: 80px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.selection:hover {
+  background-color: beige;
+}
