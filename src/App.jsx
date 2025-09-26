@@ -11,8 +11,7 @@ function App() {
   const [pixelPosition, setPixelPosition] = useState({ left: 0, top: 0 });
 
   function clickImgHandler(e) {
-    // Toggle dropdown visibility
-    setShowDropDown((prev) => !prev);
+    toggleDropDown();
 
     const img = e.currentTarget;
     const rect = img.getBoundingClientRect();
@@ -40,6 +39,10 @@ function App() {
     // console.log(`The actual click position: ${actualX}px X, ${actualY}px Y`);
   }
 
+  function toggleDropDown() {
+    setShowDropDown((prev) => !prev);
+  }
+
   return (
     <>
       <div className="container">
@@ -58,6 +61,7 @@ function App() {
               border: "2px solid black",
             }}
             location={pixelPosition}
+            toggleDropDown={toggleDropDown}
           />
         )}
       </div>
