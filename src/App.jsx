@@ -57,6 +57,7 @@ function App() {
               top: clickPosition.top,
               border: "2px solid black",
             }}
+            location={pixelPosition}
           />
         )}
       </div>
