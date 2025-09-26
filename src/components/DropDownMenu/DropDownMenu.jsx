@@ -1,25 +1,26 @@
 import styles from "./DropDownMenu.module.css";
 
-function DropDownMenu({ style }) {
+function DropDownMenu({ style, location }) {
+  function clickHandler(e) {
+    console.log(location);
+    console.log(e.currentTarget.textContent);
+    fetch(
+      `http://localhost:3000/api/characters/${e.currentTarget.textContent}?x=${location.left}&y=${location.top}`
+    )
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }
+
   return (
     <div style={style} className={styles.container}>
-      <p
-        className={styles.selection}
-        onClick={(e) => console.log(e.currentTarget)}
-      >
+      <p className={styles.selection} onClick={clickHandler}>
         Waldo
       </p>
-      <p
-        className={styles.selection}
-        onClick={(e) => console.log(e.currentTarget)}
-      >
+      <p className={styles.selection} onClick={clickHandler}>
         Wizard
       </p>
-      <p
-        className={styles.selection}
-        onClick={(e) => console.log(e.currentTarget)}
-      >
-        Wanda
+      <p className={styles.selection} onClick={clickHandler}>
+        Wenda
       </p>
     </div>
   );
