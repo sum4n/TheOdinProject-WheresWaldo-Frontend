@@ -9,6 +9,25 @@ function App() {
   const [showDropDown, setShowDropDown] = useState(false);
   const [clickPosition, setClickPosition] = useState({ left: 0, top: 0 });
   const [pixelPosition, setPixelPosition] = useState({ left: 0, top: 0 });
+  const [waldoLocation, setWaldoLocation] = useState();
+  const [wizardLocation, setWizardLocation] = useState();
+  const [wendaLocation, setWendaLocation] = useState();
+
+  function markLocationWhenFound(name) {
+    // console.log(e);
+    // console.log(clickPosition);
+    if (name == "Waldo") {
+      setWaldoLocation(clickPosition);
+    }
+    if (name == "Wizard") {
+      setWizardLocation(clickPosition);
+    }
+    if (name == "Wenda") {
+      setWendaLocation(clickPosition);
+    }
+  }
+
+  // console.log(waldoLocation);
 
   function clickImgHandler(e) {
     toggleDropDown();
@@ -62,10 +81,32 @@ function App() {
             }}
             location={pixelPosition}
             toggleDropDown={toggleDropDown}
+            markLocation={markLocationWhenFound}
           />
+        )}
+        {!waldoLocation ? null : (
+          <Marker left={waldoLocation.left} top={waldoLocation.top} />
+        )}
+        {!wizardLocation ? null : (
+          <Marker left={wizardLocation.left} top={wizardLocation.top} />
+        )}
+        {!wendaLocation ? null : (
+          <Marker left={wendaLocation.left} top={wendaLocation.top} />
         )}
       </div>
     </>
+  );
+}
+
+function Marker({ left, top }) {
+  return (
+    <div
+      className="marker"
+      style={{
+        left: left - 19, // 30px width and height / 2
+        top: top - 19, // there is offset of 8px / 2
+      }} // so 15+4=19 should be substracted to print the div keeping the click location at the center
+    ></div>
   );
 }
 

@@ -1,6 +1,6 @@
 import styles from "./DropDownMenu.module.css";
 
-function DropDownMenu({ style, location, toggleDropDown }) {
+function DropDownMenu({ style, location, toggleDropDown, markLocation }) {
   function clickHandler(e) {
     console.log(location);
     console.log(e.currentTarget.textContent);
@@ -12,7 +12,15 @@ function DropDownMenu({ style, location, toggleDropDown }) {
       `http://localhost:3000/api/characters/${e.currentTarget.textContent}?x=${location.left}&y=${location.top}`
     )
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data.success);
+        if (data.success == true) {
+          alert(`You found ${data.character.name}`);
+          markLocation(data.character.name);
+        } else {
+          alert("Not found");
+        }
+      });
   }
 
   return (
