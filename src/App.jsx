@@ -12,18 +12,27 @@ function App() {
   const [waldoLocation, setWaldoLocation] = useState();
   const [wizardLocation, setWizardLocation] = useState();
   const [wendaLocation, setWendaLocation] = useState();
-
+  const [characterList, setCharacterList] = useState([
+    "Waldo",
+    "Wizard",
+    "Wenda",
+  ]);
+  // console.log(characterList);
   function markLocationWhenFound(name) {
     // console.log(e);
     // console.log(clickPosition);
     if (name == "Waldo") {
       setWaldoLocation(clickPosition);
+      setCharacterList(characterList.filter((name) => name != "Waldo"));
+      // console.log(characterList);
     }
     if (name == "Wizard") {
       setWizardLocation(clickPosition);
+      setCharacterList(characterList.filter((name) => name != "Wizard"));
     }
     if (name == "Wenda") {
       setWendaLocation(clickPosition);
+      setCharacterList(characterList.filter((name) => name != "Wenda"));
     }
   }
 
@@ -82,6 +91,7 @@ function App() {
             location={pixelPosition}
             toggleDropDown={toggleDropDown}
             markLocation={markLocationWhenFound}
+            characterList={characterList}
           />
         )}
         {!waldoLocation ? null : (

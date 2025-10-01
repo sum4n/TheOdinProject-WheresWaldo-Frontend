@@ -1,6 +1,12 @@
 import styles from "./DropDownMenu.module.css";
 
-function DropDownMenu({ style, location, toggleDropDown, markLocation }) {
+function DropDownMenu({
+  style,
+  location,
+  toggleDropDown,
+  markLocation,
+  characterList,
+}) {
   function clickHandler(e) {
     console.log(location);
     console.log(e.currentTarget.textContent);
@@ -25,15 +31,17 @@ function DropDownMenu({ style, location, toggleDropDown, markLocation }) {
 
   return (
     <div style={style} className={styles.container}>
-      <p className={styles.selection} onClick={clickHandler}>
-        Waldo
-      </p>
-      <p className={styles.selection} onClick={clickHandler}>
-        Wizard
-      </p>
-      <p className={styles.selection} onClick={clickHandler}>
-        Wenda
-      </p>
+      {characterList.map((character) => {
+        return (
+          <p
+            key={character}
+            className={styles.selection}
+            onClick={clickHandler}
+          >
+            {character}
+          </p>
+        );
+      })}
     </div>
   );
 }
