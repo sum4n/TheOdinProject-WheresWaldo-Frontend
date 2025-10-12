@@ -81,18 +81,21 @@ function App() {
           onClick={clickImgHandler}
         />
         {!showDropDown ? null : (
-          <DropDownMenu
-            style={{
-              position: "absolute",
-              left: clickPosition.left,
-              top: clickPosition.top,
-              border: "2px solid black",
-            }}
-            location={pixelPosition}
-            toggleDropDown={toggleDropDown}
-            markLocation={markLocationWhenFound}
-            characterList={characterList}
-          />
+          <div>
+            <DropDownMenu
+              style={{
+                position: "absolute",
+                left: clickPosition.left,
+                top: clickPosition.top,
+                border: "2px solid black",
+              }}
+              location={pixelPosition}
+              toggleDropDown={toggleDropDown}
+              markLocation={markLocationWhenFound}
+              characterList={characterList}
+            />
+            <Marker left={clickPosition.left} top={clickPosition.top} />
+          </div>
         )}
         {!waldoLocation ? null : (
           <Marker left={waldoLocation.left} top={waldoLocation.top} />
