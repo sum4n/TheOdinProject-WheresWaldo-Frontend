@@ -89,12 +89,7 @@ function App() {
         {!showDropDown ? null : (
           <div>
             <DropDownMenu
-              style={{
-                position: "absolute",
-                left: `${clickPosition.left}%`,
-                top: `${clickPosition.top}%`,
-                border: "2px solid black",
-              }}
+              clickPosition={clickPosition}
               location={pixelPosition}
               toggleDropDown={toggleDropDown}
               markLocation={markLocationWhenFound}

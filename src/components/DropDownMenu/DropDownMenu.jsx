@@ -1,7 +1,7 @@
 import styles from "./DropDownMenu.module.css";
 
 function DropDownMenu({
-  style,
+  clickPosition,
   location,
   toggleDropDown,
   markLocation,
@@ -30,7 +30,10 @@ function DropDownMenu({
   }
 
   return (
-    <div style={style} className={styles.container}>
+    <div
+      style={{ left: `${clickPosition.left}%`, top: `${clickPosition.top}%` }}
+      className={styles.container}
+    >
       {characterList.map((character) => {
         return (
           <p
