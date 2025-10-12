@@ -42,13 +42,18 @@ function App() {
     toggleDropDown();
 
     const img = e.currentTarget;
+    // Get the element's bounding rectangle
     const rect = img.getBoundingClientRect();
+
+    // Calculate position as percentage
+    const percentX = ((e.clientX - rect.left) / rect.width) * 100;
+    const percentY = ((e.clientY - rect.top) / rect.height) * 100;
+
+    setClickPosition({ left: percentX, top: percentY });
 
     // Calculate click postion relative to the displayed image
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
-    setClickPosition({ left: x, top: y });
 
     // Calculate click position relative to the natural image resolution
     const scaleX = img.naturalWidth / rect.width;
@@ -65,6 +70,7 @@ function App() {
     // console.log(`Clicked position: ${x}px X, ${y}px Y`);
     // console.log({ scaleX, scaleY });
     // console.log(`The actual click position: ${actualX}px X, ${actualY}px Y`);
+    // console.log(percentX, percentY);
   }
 
   function toggleDropDown() {
@@ -85,8 +91,8 @@ function App() {
             <DropDownMenu
               style={{
                 position: "absolute",
-                left: clickPosition.left,
-                top: clickPosition.top,
+                left: `${clickPosition.left}%`,
+                top: `${clickPosition.top}%`,
                 border: "2px solid black",
               }}
               location={pixelPosition}
@@ -116,9 +122,9 @@ function Marker({ left, top }) {
     <div
       className="marker"
       style={{
-        left: left - 19, // 30px width and height / 2
-        top: top - 19, // there is offset of 8px / 2
-      }} // so 15+4=19 should be substracted to print the div keeping the click location at the center
+        left: `${left}%`,
+        top: `${top}%`,
+      }}
     ></div>
   );
 }
