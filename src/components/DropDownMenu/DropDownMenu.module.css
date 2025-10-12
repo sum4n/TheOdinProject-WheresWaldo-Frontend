@@ -2,6 +2,7 @@
   background-color: azure;
   display: flex;
   flex-direction: column;
+  transform: translate(30%, -50%);
 }
 
 .selection {
