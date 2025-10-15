@@ -4,6 +4,7 @@ import { useState } from "react";
 import waldoImg from "./assets/waldo.jpeg";
 import "./App.css";
 import DropDownMenu from "./components/DropDownMenu/DropDownMenu";
+import Marker from "./components/Marker/Marker";
 
 function App() {
   const [showDropDown, setShowDropDown] = useState(false);
@@ -109,18 +110,6 @@ function App() {
         )}
       </div>
     </>
-  );
-}
-
-function Marker({ left, top }) {
-  return (
-    <div
-      className="marker"
-      style={{
-        left: `${left}%`,
-        top: `${top}%`,
-      }}
-    ></div>
   );
 }
 
