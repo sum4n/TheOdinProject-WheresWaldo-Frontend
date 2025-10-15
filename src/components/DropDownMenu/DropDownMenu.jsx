@@ -15,14 +15,14 @@ function DropDownMenu({
     toggleDropDown();
 
     fetch(
-      `http://localhost:3000/api/characters/${e.currentTarget.textContent}?x=${location.left}&y=${location.top}`
+      `http://localhost:3000/api/characters/check/${e.currentTarget.textContent}?x=${location.left}&y=${location.top}`
     )
       .then((response) => response.json())
       .then((data) => {
         console.log(data.success);
         if (data.success == true) {
-          alert(`You found ${data.character.name}`);
-          markLocation(data.character.name);
+          alert(`You found ${data.name}`);
+          markLocation(data.name);
         } else {
           alert("Not found");
         }
