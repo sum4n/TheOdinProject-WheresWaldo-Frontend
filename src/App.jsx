@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/vite.svg";
 import waldoImg from "./assets/waldo.jpeg";
@@ -13,12 +13,18 @@ function App() {
   const [waldoLocation, setWaldoLocation] = useState();
   const [wizardLocation, setWizardLocation] = useState();
   const [wendaLocation, setWendaLocation] = useState();
-  const [characterList, setCharacterList] = useState([
-    "Waldo",
-    "Wizard",
-    "Wenda",
-  ]);
+  const [characterList, setCharacterList] = useState([]);
   // console.log(characterList);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/characters`)
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        setCharacterList(data);
+      });
+  }, []);
+
   function markLocationWhenFound(name) {
     // console.log(e);
     // console.log(clickPosition);
