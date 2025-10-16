@@ -10,11 +10,8 @@ function App() {
   const [showDropDown, setShowDropDown] = useState(false);
   const [clickPosition, setClickPosition] = useState({ left: 0, top: 0 });
   const [pixelPosition, setPixelPosition] = useState({ left: 0, top: 0 });
-  const [waldoLocation, setWaldoLocation] = useState();
-  const [wizardLocation, setWizardLocation] = useState();
-  const [wendaLocation, setWendaLocation] = useState();
   const [characterList, setCharacterList] = useState([]);
-  // console.log(characterList);
+  const [characterLocations, setCharacterLocations] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/characters`)
@@ -25,25 +22,18 @@ function App() {
       });
   }, []);
 
-  function markLocationWhenFound(name) {
-    // console.log(e);
-    // console.log(clickPosition);
-    if (name == "Waldo") {
-      setWaldoLocation(clickPosition);
-      setCharacterList(characterList.filter((name) => name != "Waldo"));
-      // console.log(characterList);
-    }
-    if (name == "Wizard") {
-      setWizardLocation(clickPosition);
-      setCharacterList(characterList.filter((name) => name != "Wizard"));
-    }
-    if (name == "Wenda") {
-      setWendaLocation(clickPosition);
-      setCharacterList(characterList.filter((name) => name != "Wenda"));
-    }
+  function handleCharacterFound(location, name) {
+    // set location of the discovered character
+    setCharacterLocations([...characterLocations, location]);
+    // remove the character from the dropdown list
+    setCharacterList(
+      characterList.filter((characterName) => characterName != name)
+    );
   }
 
-  // console.log(waldoLocation);
+  function toggleDropDown() {
+    setShowDropDown((prev) => !prev);
+  }
 
   function clickImgHandler(e) {
     toggleDropDown();
@@ -80,10 +70,6 @@ function App() {
     // console.log(percentX, percentY);
   }
 
-  function toggleDropDown() {
-    setShowDropDown((prev) => !prev);
-  }
-
   return (
     <>
       <div className="container">
@@ -99,21 +85,22 @@ function App() {
               clickPosition={clickPosition}
               location={pixelPosition}
               toggleDropDown={toggleDropDown}
-              markLocation={markLocationWhenFound}
               characterList={characterList}
+              handleCharacterFound={handleCharacterFound}
             />
             <Marker left={clickPosition.left} top={clickPosition.top} />
           </div>
         )}
-        {!waldoLocation ? null : (
-          <Marker left={waldoLocation.left} top={waldoLocation.top} />
-        )}
-        {!wizardLocation ? null : (
-          <Marker left={wizardLocation.left} top={wizardLocation.top} />
-        )}
-        {!wendaLocation ? null : (
-          <Marker left={wendaLocation.left} top={wendaLocation.top} />
-        )}
+        {characterLocations.length > 0 &&
+          characterLocations.map((characterLocation) => {
+            return (
+              <Marker
+                key={[characterLocation.left, characterLocation.top]}
+                left={characterLocation.left}
+                top={characterLocation.top}
+              />
+            );
+          })}
       </div>
     </>
   );
