@@ -4,8 +4,8 @@ function DropDownMenu({
   clickPosition,
   location,
   toggleDropDown,
-  markLocation,
   characterList,
+  handleCharacterFound,
 }) {
   function clickHandler(e) {
     console.log(location);
@@ -22,7 +22,7 @@ function DropDownMenu({
         console.log(data.success);
         if (data.success == true) {
           alert(`You found ${data.name}`);
-          markLocation(data.name);
+          handleCharacterFound(clickPosition, data.name);
         } else {
           alert("Not found");
         }
