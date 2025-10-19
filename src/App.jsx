@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "/vite.svg";
-import waldoImg from "./assets/waldo.jpeg";
 import "./App.css";
 import DropDownMenu from "./components/DropDownMenu/DropDownMenu";
 import Marker from "./components/Marker/Marker";
@@ -12,6 +9,7 @@ function App() {
   const [pixelPosition, setPixelPosition] = useState({ left: 0, top: 0 });
   const [characterList, setCharacterList] = useState([]);
   const [characterLocations, setCharacterLocations] = useState([]);
+  const [boardObject, setBoardObject] = useState({});
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/characters`)
@@ -19,6 +17,13 @@ function App() {
       .then((data) => {
         // console.log(data);
         setCharacterList(data);
+      });
+
+    fetch("http://localhost:3000/api/assets")
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        setBoardObject(data);
       });
   }, []);
 
@@ -74,9 +79,9 @@ function App() {
     <>
       <div className="container">
         <img
-          className="waldoImg"
-          src={waldoImg}
-          alt="crowd at beach"
+          className="boardImg"
+          src={boardObject.imgUrl}
+          alt={boardObject.name + " board"}
           onClick={clickImgHandler}
         />
         {!showDropDown ? null : (
