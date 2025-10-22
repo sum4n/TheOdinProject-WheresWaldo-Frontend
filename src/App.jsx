@@ -12,18 +12,12 @@ function App() {
   const [boardObject, setBoardObject] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/characters`)
+    fetch("http://localhost:3000/api/assets", { credentials: "include" })
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
-        setCharacterList(data);
-      });
-
-    fetch("http://localhost:3000/api/assets")
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);
-        setBoardObject(data);
+        setBoardObject(data.gameBoard);
+        setCharacterList(data.characters);
       });
   }, []);
 
