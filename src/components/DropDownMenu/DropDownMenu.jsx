@@ -15,12 +15,17 @@ function DropDownMenu({
     toggleDropDown();
 
     fetch(
-      `http://localhost:3000/api/characters/check/${e.currentTarget.textContent}?x=${location.left}&y=${location.top}`
+      `http://localhost:3000/api/characters/check/${e.currentTarget.textContent}?x=${location.left}&y=${location.top}`,
+      { credentials: "include" }
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.success);
-        if (data.success == true) {
+        // console.log(data);
+        if (data.gameEnd) {
+          alert(`You found ${data.name}`);
+          handleCharacterFound(clickPosition, data.name);
+          alert("You won");
+        } else if (data.success) {
           alert(`You found ${data.name}`);
           handleCharacterFound(clickPosition, data.name);
         } else {
@@ -37,11 +42,11 @@ function DropDownMenu({
       {characterList.map((character) => {
         return (
           <p
-            key={character}
+            key={character.id}
             className={styles.selection}
             onClick={clickHandler}
           >
-            {character}
+            {character.name}
           </p>
         );
       })}
