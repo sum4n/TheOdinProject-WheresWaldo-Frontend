@@ -25,8 +25,9 @@ function App() {
     // set location of the discovered character
     setCharacterLocations([...characterLocations, location]);
     // remove the character from the dropdown list
+    console.log(characterList);
     setCharacterList(
-      characterList.filter((characterName) => characterName != name)
+      characterList.filter((character) => character.name != name)
     );
   }
 
