@@ -21,5 +21,15 @@
 }
 
 .selection:hover {
-  background-color: beige;
+  background-color: black;
+}
+
+.characterImg {
+  height: 100%;
+  width: 100%;
+}
+
+.characterImg:hover {
+  height: 95%;
+  width: 95%;
 }

@@ -24,7 +24,7 @@ function DropDownMenu({
         if (data.gameEnd) {
           alert(`You found ${data.name}`);
           handleCharacterFound(clickPosition, data.name);
-          alert("You won");
+          alert(`You won! Time: ${data.timeElapsed}`);
         } else if (data.success) {
           alert(`You found ${data.name}`);
           handleCharacterFound(clickPosition, data.name);
@@ -41,13 +41,18 @@ function DropDownMenu({
     >
       {characterList.map((character) => {
         return (
-          <p
+          <div
             key={character.id}
+            id={character.name}
             className={styles.selection}
             onClick={clickHandler}
           >
-            {character.name}
-          </p>
+            <img
+              className={styles.characterImg}
+              src={character.imgUrl}
+              alt={character.name + " image"}
+            />
+          </div>
         );
       })}
     </div>
