@@ -15,7 +15,7 @@ function DropDownMenu({
     toggleDropDown();
 
     fetch(
-      `http://localhost:3000/api/characters/check/${e.currentTarget.textContent}?x=${location.left}&y=${location.top}`,
+      `http://localhost:3000/api/characters/check/${e.currentTarget.id}?x=${location.left}&y=${location.top}`,
       { credentials: "include" }
     )
       .then((response) => response.json())
