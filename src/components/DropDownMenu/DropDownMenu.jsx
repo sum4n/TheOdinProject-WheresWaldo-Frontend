@@ -6,6 +6,8 @@ function DropDownMenu({
   toggleDropDown,
   characterList,
   handleCharacterFound,
+  setGameEnd,
+  setTimeTaken,
 }) {
   function clickHandler(e) {
     console.log(location);
@@ -20,10 +22,12 @@ function DropDownMenu({
     )
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         if (data.gameEnd) {
           alert(`You found ${data.name}`);
           handleCharacterFound(clickPosition, data.name);
+          setGameEnd(true);
+          setTimeTaken(data.timeElapsed);
           alert(`You won! Time: ${data.timeElapsed}`);
         } else if (data.success) {
           alert(`You found ${data.name}`);

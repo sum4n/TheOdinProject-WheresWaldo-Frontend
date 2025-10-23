@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import DropDownMenu from "./components/DropDownMenu/DropDownMenu";
 import Marker from "./components/Marker/Marker";
+import GameEndPopup from "./components/GameEndPopup/GameEndPopup";
 
 function App() {
   const [showDropDown, setShowDropDown] = useState(false);
@@ -10,6 +11,8 @@ function App() {
   const [characterList, setCharacterList] = useState([]);
   const [characterLocations, setCharacterLocations] = useState([]);
   const [boardObject, setBoardObject] = useState({});
+  const [gameEnd, setGameEnd] = useState(false);
+  const [timeTaken, setTimeTaken] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:3000/api/assets", { credentials: "include" })
@@ -87,6 +90,8 @@ function App() {
               toggleDropDown={toggleDropDown}
               characterList={characterList}
               handleCharacterFound={handleCharacterFound}
+              setGameEnd={setGameEnd}
+              setTimeTaken={setTimeTaken}
             />
             <Marker left={clickPosition.left} top={clickPosition.top} />
           </div>
@@ -101,6 +106,7 @@ function App() {
               />
             );
           })}
+        {gameEnd && <GameEndPopup timeTaken={timeTaken} />}
       </div>
     </>
   );
