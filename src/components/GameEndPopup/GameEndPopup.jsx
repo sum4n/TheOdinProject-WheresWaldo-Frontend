@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./GameEndPopup.module.css";
 
 function GameEndPopup({ timeTaken }) {
   const [username, setUserName] = useState("");
@@ -8,10 +9,10 @@ function GameEndPopup({ timeTaken }) {
   }
 
   return (
-    <div>
-      <p>Congratulations!</p>
-      <p>You've found all characters!!</p>
-      <p>Time taken: {timeTaken}</p>
+    <div className={styles.container}>
+      <p className={styles.gzText}>Congratulations!</p>
+      <p className={styles.text}>You've found all characters!!</p>
+      <p className={styles.text}>Time taken: {timeTaken}</p>
       <form action="#" method="post">
         <label htmlFor="username">Enter name to check ranking:</label>
         <br />
@@ -25,7 +26,9 @@ function GameEndPopup({ timeTaken }) {
         <br />
         <input type="submit" value="Submit" />
       </form>
-      <a href="#">Start new game</a>
+      <p>
+        <a href="#">Start new game</a>
+      </p>
     </div>
   );
 }

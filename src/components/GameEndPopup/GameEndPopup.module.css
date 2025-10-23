@@ -1,0 +1,14 @@
+.container {
+  position: fixed;
+  border: 2px solid rgba(0, 0, 0, 0.506);
+  border-radius: 8px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: burlywood;
+  width: 40%;
+  /* height: 50%; */
+  overflow: overlay;
+
+  text-align: center;
+}
