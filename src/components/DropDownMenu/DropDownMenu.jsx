@@ -8,6 +8,7 @@ function DropDownMenu({
   handleCharacterFound,
   setGameEnd,
   setTimeTaken,
+  setClickResult,
 }) {
   function clickHandler(e) {
     console.log(location);
@@ -23,17 +24,14 @@ function DropDownMenu({
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        setClickResult(data);
         if (data.gameEnd) {
-          alert(`You found ${data.name}`);
           handleCharacterFound(clickPosition, data.name);
           setGameEnd(true);
           setTimeTaken(data.timeElapsed);
-          alert(`You won! Time: ${data.timeElapsed}`);
-        } else if (data.success) {
-          alert(`You found ${data.name}`);
+        }
+        if (data.success) {
           handleCharacterFound(clickPosition, data.name);
-        } else {
-          alert("Not found");
         }
       });
   }

@@ -3,6 +3,7 @@ import "./App.css";
 import DropDownMenu from "./components/DropDownMenu/DropDownMenu";
 import Marker from "./components/Marker/Marker";
 import GameEndPopup from "./components/GameEndPopup/GameEndPopup";
+import ClickResultNotification from "./components/ClickResultNotification/ClickResultNotification";
 
 function App() {
   const [showDropDown, setShowDropDown] = useState(false);
@@ -13,6 +14,7 @@ function App() {
   const [boardObject, setBoardObject] = useState({});
   const [gameEnd, setGameEnd] = useState(false);
   const [timeTaken, setTimeTaken] = useState(null);
+  const [clickResult, setClickResult] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:3000/api/assets", { credentials: "include" })
@@ -92,6 +94,7 @@ function App() {
               handleCharacterFound={handleCharacterFound}
               setGameEnd={setGameEnd}
               setTimeTaken={setTimeTaken}
+              setClickResult={setClickResult}
             />
             <Marker left={clickPosition.left} top={clickPosition.top} />
           </div>
@@ -107,6 +110,7 @@ function App() {
             );
           })}
         {gameEnd && <GameEndPopup timeTaken={timeTaken} />}
+        {clickResult && <ClickResultNotification clickResult={clickResult} />}
       </div>
     </>
   );
