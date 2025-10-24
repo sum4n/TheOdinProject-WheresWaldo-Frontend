@@ -26,6 +26,15 @@ function App() {
       });
   }, []);
 
+  useEffect(() => {
+    if (clickResult) {
+      const timeout = setTimeout(() => setClickResult(null), 1000);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  });
+
   function handleCharacterFound(location, name) {
     // set location of the discovered character
     setCharacterLocations([...characterLocations, location]);
