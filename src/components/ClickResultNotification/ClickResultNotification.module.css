@@ -1,0 +1,17 @@
+.notification {
+  /* border: 1px solid black; */
+  border-radius: 8px;
+  background-color: rgb(38, 37, 36);
+  color: aliceblue;
+  width: 200px;
+  height: 2.5rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding-left: 8px; */
+
+  position: fixed;
+  top: 10%;
+  left: 70%;
+}
