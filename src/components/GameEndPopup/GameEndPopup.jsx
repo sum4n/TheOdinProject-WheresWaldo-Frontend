@@ -8,12 +8,26 @@ function GameEndPopup({ timeTaken }) {
     setUserName(e.target.value);
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    fetch("http://localhost:3000/api/score", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username }),
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }
+
   return (
     <div className={styles.container}>
       <p className={styles.gzText}>Congratulations!</p>
       <p className={styles.text}>You've found all characters!!</p>
       <p className={styles.text}>Time taken: {timeTaken}</p>
-      <form action="#" method="post">
+      <form onSubmit={handleSubmit}>
         <label htmlFor="username">Enter name to check ranking:</label>
         <br />
         <input
@@ -22,6 +36,7 @@ function GameEndPopup({ timeTaken }) {
           name="username"
           value={username}
           onChange={handleInput}
+          required
         />
         <br />
         <input type="submit" value="Submit" />
