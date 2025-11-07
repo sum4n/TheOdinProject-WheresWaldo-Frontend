@@ -12,3 +12,7 @@
 
   text-align: center;
 }
+
+.error {
+  color: rgb(91, 2, 2);
+}
