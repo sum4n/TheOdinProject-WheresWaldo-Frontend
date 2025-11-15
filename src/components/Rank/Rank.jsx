@@ -10,8 +10,8 @@ function Rank() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setScores(data);
+        // console.log(data);
+        setScores(data.scores);
       });
   }, []);
 
