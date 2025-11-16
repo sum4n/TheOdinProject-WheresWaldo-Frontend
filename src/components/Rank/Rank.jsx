@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 function Rank() {
   const [scores, setScores] = useState();
+  const { state } = useLocation();
+  // console.log(state);
 
   useEffect(() => {
     fetch("http://localhost:3000/api/score", {
@@ -25,7 +27,15 @@ function Rank() {
           {scores.map((score) => {
             return (
               <li key={score.id}>
-                {score.username} - {score.time}
+                {state && score.username == state.username ? (
+                  <p style={{ textDecoration: "underline" }}>
+                    {score.username} - {score.time}{" "}
+                  </p>
+                ) : (
+                  <p>
+                    {score.username} - {score.time}
+                  </p>
+                )}
               </li>
             );
           })}

@@ -38,7 +38,7 @@ function GameEndPopup() {
       .then((data) => {
         // console.log(data);
         if (data.message == "success") {
-          navigate("ranking");
+          navigate("ranking", { state: { username: username } });
         } else {
           setErrors(data.message[0]);
         }
