@@ -50,22 +50,31 @@ function GameEndPopup() {
       <p className={styles.gzText}>Congratulations!</p>
       <p className={styles.text}>You've found all characters!!</p>
       <p className={styles.text}>Time taken: {resultData.timeElapsed}</p>
-      <p className={styles.text}>Rank: {resultData.rank}</p>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Enter name to check ranking:</label>
-        <br />
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value={username}
-          onChange={handleInput}
-          required
-        />
-        {errors && <p className={styles.error}>{errors.msg}</p>}
-        <br />
-        <input type="submit" value="Submit" />
-      </form>
+      {resultData.rank <= 20 ? (
+        <>
+          <p className={styles.text}>Rank: {resultData.rank}</p>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="username">Enter name to check ranking:</label>
+            <br />
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={username}
+              onChange={handleInput}
+              required
+            />
+            {errors && <p className={styles.error}>{errors.msg}</p>}
+            <br />
+            <input type="submit" value="Submit" />
+          </form>
+        </>
+      ) : (
+        <p>
+          You are not in top 20. You need to be in top 20 to save your score
+        </p>
+      )}
+
       <p>
         <a href="/">Start new game</a>
       </p>
