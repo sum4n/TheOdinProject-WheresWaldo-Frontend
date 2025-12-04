@@ -1,0 +1,128 @@
+import { Link, useOutletContext, useParams } from "react-router";
+import { useState } from "react";
+import DropDownMenu from "../DropDownMenu/DropDownMenu";
+import Marker from "../Marker/Marker";
+import GameEndPopup from "../GameEndPopup/GameEndPopup";
+import ClickResultNotification from "../ClickResultNotification/ClickResultNotification";
+import styles from "./GameBoard.module.css";
+
+function GameBoard() {
+  const [showDropDown, setShowDropDown] = useState(false);
+  const [clickPosition, setClickPosition] = useState({ left: 0, top: 0 });
+  const [pixelPosition, setPixelPosition] = useState({ left: 0, top: 0 });
+  const [characterLocations, setCharacterLocations] = useState([]);
+  const [gameEnd, setGameEnd] = useState(false);
+  const [timeTaken, setTimeTaken] = useState(null);
+  const [clickResult, setClickResult] = useState(null);
+
+  // get name of the board from the url parameter.
+  const { boardname } = useParams();
+  console.log(boardname);
+
+  const { boardList, characterList, setCharacterList } = useOutletContext();
+
+  let boardObject;
+  // this condition is needed, else page refresh will cause error.
+  // find board from list of boards.
+  if (boardList) {
+    boardObject = boardList.find((board) => board.name == boardname);
+  }
+  // console.log(boardList);
+
+  function handleCharacterFound(location, name) {
+    // set location of the discovered character
+    setCharacterLocations([...characterLocations, location]);
+    // remove the character from the dropdown list
+    console.log(characterList);
+    setCharacterList(
+      characterList.filter((character) => character.name != name)
+    );
+    // characterList = characterList.filter((character) => character.name != name);
+  }
+
+  function toggleDropDown() {
+    setShowDropDown((prev) => !prev);
+  }
+
+  function clickImgHandler(e) {
+    toggleDropDown();
+
+    const img = e.currentTarget;
+    // Get the element's bounding rectangle
+    const rect = img.getBoundingClientRect();
+
+    // Calculate position as percentage
+    const percentX = ((e.clientX - rect.left) / rect.width) * 100;
+    const percentY = ((e.clientY - rect.top) / rect.height) * 100;
+
+    setClickPosition({ left: percentX, top: percentY });
+
+    // Calculate click postion relative to the displayed image
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Calculate click position relative to the natural image resolution
+    const scaleX = img.naturalWidth / rect.width;
+    const scaleY = img.naturalHeight / rect.height;
+
+    const actualX = Math.round(x * scaleX);
+    const actualY = Math.round(y * scaleY);
+
+    setPixelPosition({ left: actualX, top: actualY });
+
+    // console.log(img);
+    // console.log(rect);
+    // console.log(e.clientX, e.clientY);
+    // console.log(`Clicked position: ${x}px X, ${y}px Y`);
+    // console.log({ scaleX, scaleY });
+    // console.log(`The actual click position: ${actualX}px X, ${actualY}px Y`);
+    // console.log(percentX, percentY);
+  }
+
+  return (
+    <div className={styles.container}>
+      {/* this condition is needed, else page refresh will cause error. */}
+      {boardObject ? (
+        <img
+          className={styles.boardImg}
+          src={boardObject.imgUrl}
+          alt={boardObject.name + " board"}
+          onClick={clickImgHandler}
+        />
+      ) : (
+        <p>
+          No board found. <Link to="/boards">Go to board selection</Link>
+        </p>
+      )}
+      {!showDropDown ? null : (
+        <div>
+          <DropDownMenu
+            clickPosition={clickPosition}
+            location={pixelPosition}
+            toggleDropDown={toggleDropDown}
+            characterList={characterList}
+            handleCharacterFound={handleCharacterFound}
+            setGameEnd={setGameEnd}
+            setTimeTaken={setTimeTaken}
+            setClickResult={setClickResult}
+          />
+          <Marker left={clickPosition.left} top={clickPosition.top} />
+        </div>
+      )}
+      {characterLocations.length > 0 &&
+        characterLocations.map((characterLocation) => {
+          return (
+            <Marker
+              key={[characterLocation.left, characterLocation.top]}
+              left={characterLocation.left}
+              top={characterLocation.top}
+            />
+          );
+        })}
+      {gameEnd && <GameEndPopup timeTaken={timeTaken} />}
+      {clickResult && <ClickResultNotification clickResult={clickResult} />}
+    </div>
+  );
+}
+
+export default GameBoard;
