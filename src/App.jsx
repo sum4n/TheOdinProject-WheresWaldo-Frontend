@@ -7,11 +7,11 @@ function App() {
   const [clickResult, setClickResult] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/assets", { credentials: "include" })
+    fetch("http://localhost:3000/api/gameboards", { credentials: "include" })
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
-        setBoardList(data.gameBoard);
+        setBoardList(data);
       });
   }, []);
 
