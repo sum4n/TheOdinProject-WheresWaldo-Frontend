@@ -1,5 +1,5 @@
 import { Link, useOutletContext, useParams } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DropDownMenu from "../DropDownMenu/DropDownMenu";
 import Marker from "../Marker/Marker";
 import GameEndPopup from "../GameEndPopup/GameEndPopup";
@@ -14,30 +14,45 @@ function GameBoard() {
   const [gameEnd, setGameEnd] = useState(false);
   const [timeTaken, setTimeTaken] = useState(null);
   const [clickResult, setClickResult] = useState(null);
+  const [characters, setCharacters] = useState([]);
 
   // get name of the board from the url parameter.
   const { boardname } = useParams();
   console.log(boardname);
 
-  const { boardList, characterList, setCharacterList } = useOutletContext();
+  // get list of boards
+  const { boardList } = useOutletContext();
 
+  // find the specific board to play
   let boardObject;
   // this condition is needed, else page refresh will cause error.
   // find board from list of boards.
-  if (boardList) {
+  if (boardList && boardList.length > 0) {
     boardObject = boardList.find((board) => board.name == boardname);
   }
   // console.log(boardList);
+
+  // get board characters
+  useEffect(() => {
+    // if - prevents error in page refresh
+    if (boardObject) {
+      fetch(`http://localhost:3000/api/${boardObject.id}/characters`, {
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setCharacters(data);
+          console.log(data);
+        });
+    }
+  }, [boardObject]);
 
   function handleCharacterFound(location, name) {
     // set location of the discovered character
     setCharacterLocations([...characterLocations, location]);
     // remove the character from the dropdown list
-    console.log(characterList);
-    setCharacterList(
-      characterList.filter((character) => character.name != name)
-    );
-    // characterList = characterList.filter((character) => character.name != name);
+    console.log(characters);
+    setCharacters(characters.filter((character) => character.name != name));
   }
 
   function toggleDropDown() {
@@ -100,7 +115,7 @@ function GameBoard() {
             clickPosition={clickPosition}
             location={pixelPosition}
             toggleDropDown={toggleDropDown}
-            characterList={characterList}
+            characterList={characters}
             handleCharacterFound={handleCharacterFound}
             setGameEnd={setGameEnd}
             setTimeTaken={setTimeTaken}
