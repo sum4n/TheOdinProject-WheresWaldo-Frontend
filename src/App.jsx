@@ -3,7 +3,6 @@ import "./App.css";
 import { Outlet } from "react-router";
 
 function App() {
-  const [characterList, setCharacterList] = useState([]);
   const [boardList, setBoardList] = useState([]);
   const [clickResult, setClickResult] = useState(null);
 
@@ -13,11 +12,8 @@ function App() {
       .then((data) => {
         // console.log(data);
         setBoardList(data.gameBoard);
-        setCharacterList(data.characters);
-        // setAssets(data);
       });
   }, []);
-  // console.log(assets);
 
   useEffect(() => {
     if (clickResult) {
@@ -31,7 +27,7 @@ function App() {
   return (
     <>
       <h1>Where's Waldo</h1>
-      <Outlet context={{ boardList, characterList, setCharacterList }} />
+      <Outlet context={{ boardList }} />
     </>
   );
 }
