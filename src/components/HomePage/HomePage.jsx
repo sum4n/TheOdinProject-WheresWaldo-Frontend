@@ -10,7 +10,7 @@ function HomePage() {
         <Link to="/boards">Select a game </Link>
       </p>
       <p>
-        <Link to="waldo/ranking">Leaderboard</Link>
+        <Link to="/ranking/1">Leaderboard</Link>
       </p>
     </>
   );
