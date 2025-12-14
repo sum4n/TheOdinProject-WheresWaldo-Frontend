@@ -134,7 +134,9 @@ function GameBoard() {
             />
           );
         })}
-      {gameEnd && <GameEndPopup timeTaken={timeTaken} />}
+      {gameEnd && (
+        <GameEndPopup timeTaken={timeTaken} boardObject={boardObject} />
+      )}
       {clickResult && <ClickResultNotification clickResult={clickResult} />}
     </div>
   );
