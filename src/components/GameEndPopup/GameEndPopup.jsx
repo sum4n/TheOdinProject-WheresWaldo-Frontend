@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import styles from "./GameEndPopup.module.css";
 import { useNavigate } from "react-router";
 
-function GameEndPopup() {
+function GameEndPopup({ boardObject }) {
   const [username, setUserName] = useState("");
   const [errors, setErrors] = useState();
   const [resultData, setResultData] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/score", {
+    fetch(`http://localhost:3000/api/gameboards/${boardObject.id}/score`, {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -16,7 +16,7 @@ function GameEndPopup() {
         console.log(data);
         setResultData(data);
       });
-  }, []);
+  }, [boardObject.id]);
 
   let navigate = useNavigate();
 
@@ -26,7 +26,7 @@ function GameEndPopup() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("http://localhost:3000/api/score", {
+    fetch(`http://localhost:3000/api/gameboards/${boardObject.id}/score`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,7 +38,10 @@ function GameEndPopup() {
       .then((data) => {
         // console.log(data);
         if (data.message == "success") {
-          navigate("ranking", { state: { username: username } });
+          navigate(`/ranking/${boardObject.id}`, {
+            state: { username: username },
+          });
+          console.log("score saved");
         } else {
           setErrors(data.message[0]);
         }
