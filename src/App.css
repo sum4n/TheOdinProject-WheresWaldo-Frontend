@@ -6,3 +6,10 @@
 .container {
   position: relative;
 }
+
+body {
+  background-color: #1a1b26;
+  color: #c0caf5;
+  margin: 0;
+  padding: 0;
+}
