@@ -51,9 +51,14 @@ function GameBoard() {
   function handleCharacterFound(location, name) {
     // set location of the discovered character
     setCharacterLocations([...characterLocations, location]);
-    // remove the character from the dropdown list
     console.log(characters);
-    setCharacters(characters.filter((character) => character.name != name));
+    // remove the character from the dropdown list
+    // add custom found property to individual character when discovered
+    setCharacters((prev) =>
+      prev.map((character) =>
+        character.name === name ? { ...character, found: true } : character
+      )
+    );
   }
 
   function toggleDropDown() {
