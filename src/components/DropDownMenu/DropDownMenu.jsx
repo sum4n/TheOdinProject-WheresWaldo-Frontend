@@ -42,20 +42,22 @@ function DropDownMenu({
       className={styles.container}
     >
       {characterList.map((character) => {
-        return (
-          <div
-            key={character.id}
-            id={character.name}
-            className={styles.selection}
-            onClick={clickHandler}
-          >
-            <img
-              className={styles.characterImg}
-              src={character.imgUrl}
-              alt={character.name + " image"}
-            />
-          </div>
-        );
+        if (!character.found) {
+          return (
+            <div
+              key={character.id}
+              id={character.name}
+              className={styles.selection}
+              onClick={clickHandler}
+            >
+              <img
+                className={styles.characterImg}
+                src={character.imgUrl}
+                alt={character.name + " image"}
+              />
+            </div>
+          );
+        }
       })}
     </div>
   );
