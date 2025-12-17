@@ -1,4 +1,5 @@
 import { Link, useOutletContext } from "react-router";
+import Header from "../Header/Header";
 
 function BoardSelection() {
   const { boardList } = useOutletContext();
@@ -6,6 +7,7 @@ function BoardSelection() {
 
   return (
     <>
+      <Header />
       <h1>Select a board to play</h1>
       {!boardList ? (
         <p>No board</p>

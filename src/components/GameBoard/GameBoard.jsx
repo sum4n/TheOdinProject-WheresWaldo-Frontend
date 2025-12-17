@@ -5,6 +5,7 @@ import Marker from "../Marker/Marker";
 import GameEndPopup from "../GameEndPopup/GameEndPopup";
 import ClickResultNotification from "../ClickResultNotification/ClickResultNotification";
 import styles from "./GameBoard.module.css";
+import Header from "../Header/Header";
 
 function GameBoard() {
   const [showDropDown, setShowDropDown] = useState(false);
@@ -95,50 +96,53 @@ function GameBoard() {
   }
 
   return (
-    <div className={styles.container}>
-      {/* this condition is needed, else page refresh will cause error. */}
-      {boardObject ? (
-        <img
-          className={styles.boardImg}
-          src={boardObject.imgUrl}
-          alt={boardObject.name + " board"}
-          onClick={clickImgHandler}
-        />
-      ) : (
-        <p>
-          No board found. <Link to="/boards">Go to board selection</Link>
-        </p>
-      )}
-      {!showDropDown ? null : (
-        <div>
-          <DropDownMenu
-            clickPosition={clickPosition}
-            location={pixelPosition}
-            toggleDropDown={toggleDropDown}
-            characterList={characters}
-            handleCharacterFound={handleCharacterFound}
-            setGameEnd={setGameEnd}
-            setTimeTaken={setTimeTaken}
-            setClickResult={setClickResult}
+    <>
+      <Header characters={characters} />
+      <div className={styles.container}>
+        {/* this condition is needed, else page refresh will cause error. */}
+        {boardObject ? (
+          <img
+            className={styles.boardImg}
+            src={boardObject.imgUrl}
+            alt={boardObject.name + " board"}
+            onClick={clickImgHandler}
           />
-          <Marker left={clickPosition.left} top={clickPosition.top} />
-        </div>
-      )}
-      {characterLocations.length > 0 &&
-        characterLocations.map((characterLocation) => {
-          return (
-            <Marker
-              key={[characterLocation.left, characterLocation.top]}
-              left={characterLocation.left}
-              top={characterLocation.top}
+        ) : (
+          <p>
+            No board found. <Link to="/boards">Go to board selection</Link>
+          </p>
+        )}
+        {!showDropDown ? null : (
+          <div>
+            <DropDownMenu
+              clickPosition={clickPosition}
+              location={pixelPosition}
+              toggleDropDown={toggleDropDown}
+              characterList={characters}
+              handleCharacterFound={handleCharacterFound}
+              setGameEnd={setGameEnd}
+              setTimeTaken={setTimeTaken}
+              setClickResult={setClickResult}
             />
-          );
-        })}
-      {gameEnd && (
-        <GameEndPopup timeTaken={timeTaken} boardObject={boardObject} />
-      )}
-      {clickResult && <ClickResultNotification clickResult={clickResult} />}
-    </div>
+            <Marker left={clickPosition.left} top={clickPosition.top} />
+          </div>
+        )}
+        {characterLocations.length > 0 &&
+          characterLocations.map((characterLocation) => {
+            return (
+              <Marker
+                key={[characterLocation.left, characterLocation.top]}
+                left={characterLocation.left}
+                top={characterLocation.top}
+              />
+            );
+          })}
+        {gameEnd && (
+          <GameEndPopup timeTaken={timeTaken} boardObject={boardObject} />
+        )}
+        {clickResult && <ClickResultNotification clickResult={clickResult} />}
+      </div>
+    </>
   );
 }
 
