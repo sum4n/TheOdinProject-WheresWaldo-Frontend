@@ -24,12 +24,7 @@ function App() {
     }
   });
 
-  return (
-    <>
-      <h1>Where's Waldo</h1>
-      <Outlet context={{ boardList }} />
-    </>
-  );
+  return <Outlet context={{ boardList }} />;
 }
 
 export default App;
