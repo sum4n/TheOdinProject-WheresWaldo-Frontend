@@ -6,15 +6,13 @@ import App from "./App.jsx";
 import Rank from "./components/Rank/Rank.jsx";
 import GameBoard from "./components/GameBoard/GameBoard.jsx";
 import BoardSelection from "./components/GameBoardSelection/GameBoardSelection.jsx";
-import HomePage from "./components/HomePage/HomePage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      { index: true, element: <HomePage /> },
-      { path: "/boards", element: <BoardSelection /> },
+      { index: true, element: <BoardSelection /> },
       { path: "/boards/:boardname", element: <GameBoard /> },
       { path: "/ranking/:boardId", element: <Rank /> },
     ],
