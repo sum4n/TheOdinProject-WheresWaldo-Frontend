@@ -1,13 +1,14 @@
 import { Link } from "react-router";
+import styles from "./Header.module.css";
 
 function Header({ characters }) {
   return (
-    <div>
-      <Link to="/">
+    <div className={styles.container}>
+      <Link to="/" className={styles.links}>
         <img
-          src="/public/logo/Site-logo.webp"
+          src="/logo/Site-logo.webp"
           alt="game logo"
-          style={{ width: "48px" }}
+          style={{ height: "48px" }}
         />
         <span>Where's Waldo</span>
       </Link>
@@ -15,14 +16,14 @@ function Header({ characters }) {
       {characters && (
         <>
           <p>Time elapsed: </p>
-          <div>
+          <div className={styles.characters}>
             {characters.map((character) => {
               return (
                 <img
                   key={character.id}
                   src={character.imgUrl}
                   alt={character.name}
-                  style={{ height: "48px" }}
+                  style={{ height: "38px" }}
                 />
               );
             })}
@@ -30,7 +31,7 @@ function Header({ characters }) {
         </>
       )}
 
-      <Link to="/ranking/1">
+      <Link to="/ranking/1" className={styles.links}>
         <svg
           stroke="currentColor"
           fill="currentColor"
