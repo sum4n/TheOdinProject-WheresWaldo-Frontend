@@ -5,14 +5,45 @@
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: burlywood;
+  background-color: #1a1b26;
   width: 40%;
   /* height: 50%; */
   overflow: overlay;
 
   text-align: center;
+  font-weight: bold;
 }
 
+.linkContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ad8ee6;
+  text-decoration: none;
+  /* align-items: center; */
+  text-align: center;
+
+  border: 2px solid #ad8ee6;
+  border-radius: 6px;
+
+  height: 36px;
+  width: 160px;
+}
+
+.link:visited {
+  color: #ad8ee6;
+}
+
+.link:hover {
+  color: black;
+  background-color: #ad8ee6;
+  text-decoration: underline;
+}
 .error {
   color: rgb(91, 2, 2);
 }

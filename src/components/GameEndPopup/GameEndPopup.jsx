@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./GameEndPopup.module.css";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 function GameEndPopup({ boardObject }) {
   const [username, setUserName] = useState("");
@@ -52,12 +52,12 @@ function GameEndPopup({ boardObject }) {
     <div className={styles.container}>
       <p className={styles.gzText}>Congratulations!</p>
       <p className={styles.text}>You've found all characters!!</p>
-      <p className={styles.text}>Time taken: {resultData.timeElapsed}</p>
+      <p className={styles.text}>Time taken: {resultData.timeElapsed}s</p>
       {resultData.rank <= 20 ? (
         <>
           <p className={styles.text}>Rank: {resultData.rank}</p>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Enter name to check ranking:</label>
+            <label htmlFor="username">Save you name on the leaderboard:</label>
             <br />
             <input
               type="text"
@@ -78,8 +78,10 @@ function GameEndPopup({ boardObject }) {
         </p>
       )}
 
-      <p>
-        <a href="/">Start new game</a>
+      <p className={styles.linkContainer}>
+        <Link to="/" className={styles.link}>
+          Start new game
+        </Link>
       </p>
     </div>
   );
