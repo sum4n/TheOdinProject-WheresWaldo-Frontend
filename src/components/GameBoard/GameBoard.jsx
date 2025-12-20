@@ -48,7 +48,7 @@ function GameBoard() {
     }
   }, [boardObject]);
 
-  function handleCharacterFound(location, name) {
+  function handleCharacterFound(location, name, timeTaken) {
     // set location of the discovered character
     setCharacterLocations([...characterLocations, location]);
     console.log(characters);
@@ -56,7 +56,9 @@ function GameBoard() {
     // add custom found property to individual character when discovered
     setCharacters((prev) =>
       prev.map((character) =>
-        character.name === name ? { ...character, found: true } : character
+        character.name === name
+          ? { ...character, found: true, timeTaken: timeTaken }
+          : character
       )
     );
   }
