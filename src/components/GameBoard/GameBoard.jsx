@@ -104,7 +104,7 @@ function GameBoard() {
 
   return (
     <>
-      <Header characters={characters} />
+      <Header characters={characters} gameEnd={gameEnd} />
       <div className={styles.container}>
         {/* this condition is needed, else page refresh will cause error. */}
         {boardObject ? (
