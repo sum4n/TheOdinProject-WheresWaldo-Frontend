@@ -19,12 +19,21 @@ function Header({ characters }) {
           <div className={styles.characters}>
             {characters.map((character) => {
               return (
-                <img
-                  key={character.id}
-                  src={character.imgUrl}
-                  alt={character.name}
-                  style={{ height: "38px" }}
-                />
+                <div key={character.id} className={styles.characterContainer}>
+                  <img
+                    key={character.id}
+                    src={character.imgUrl}
+                    alt={character.name}
+                    style={{ height: "38px", width: "38px" }}
+                    className={character.found && styles.found}
+                  />
+                  {character.found && (
+                    <>
+                      <p className={styles.time}>{character.timeTaken}s</p>
+                      <p className={styles.tickmark}>&#10060;</p>
+                    </>
+                  )}
+                </div>
               );
             })}
           </div>
@@ -35,7 +44,7 @@ function Header({ characters }) {
         <svg
           stroke="currentColor"
           fill="currentColor"
-          stroke-width="0"
+          strokeWidth="0"
           viewBox="0 0 640 512"
           height="1em"
           width="1em"
