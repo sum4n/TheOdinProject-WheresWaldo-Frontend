@@ -31,7 +31,7 @@ function DropDownMenu({
           setTimeTaken(data.timeElapsed);
         }
         if (data.success) {
-          handleCharacterFound(clickPosition, data.name);
+          handleCharacterFound(clickPosition, data.name, data.timeElapsed);
         }
       });
   }
