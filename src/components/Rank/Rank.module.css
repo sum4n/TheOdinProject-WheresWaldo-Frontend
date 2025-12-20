@@ -35,3 +35,22 @@
 .scoreContainer {
   flex-grow: 4;
 }
+
+table {
+  width: 100%;
+  /* Needed for border to work in tr */
+  border-collapse: collapse;
+}
+
+tr {
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  width: 150px;
+}
+
+td {
+  text-align: center;
+  height: 24px;
+}
