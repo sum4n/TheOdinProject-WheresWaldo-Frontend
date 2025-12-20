@@ -1,7 +1,23 @@
 import { Link } from "react-router";
 import styles from "./Header.module.css";
+import { useEffect, useState } from "react";
 
-function Header({ characters }) {
+function Header({ characters, gameEnd }) {
+  const [timeCounter, setTimeCounter] = useState(0);
+
+  useEffect(() => {
+    if (gameEnd) {
+      return;
+    }
+    const key = setInterval(() => {
+      setTimeCounter((count) => count + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(key);
+    };
+  }, [gameEnd]);
+
   return (
     <div className={styles.container}>
       <Link to="/" className={styles.links}>
@@ -15,7 +31,7 @@ function Header({ characters }) {
 
       {characters && (
         <>
-          <p>Time elapsed: </p>
+          <p>Time elapsed: {timeCounter} s</p>
           <div className={styles.characters}>
             {characters.map((character) => {
               return (
