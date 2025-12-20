@@ -47,23 +47,27 @@ function Rank() {
           {!scores && <p>Loading...</p>}
           {scores && scores.length === 0 && <p>No ranking found...</p>}
           {scores && scores.length > 0 && (
-            <ol>
-              {scores.map((score) => {
-                return (
-                  <li key={score.id}>
-                    {state && score.username == state.username ? (
-                      <p style={{ textDecoration: "underline" }}>
-                        {score.username} - {score.time}{" "}
-                      </p>
-                    ) : (
-                      <p>
-                        {score.username} - {score.time}
-                      </p>
-                    )}
-                  </li>
-                );
-              })}
-            </ol>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Rank</th>
+                  <th>Player</th>
+                  <th>Time</th>
+                  <th>Date</th>
+                </tr>
+
+                {scores.map((score) => {
+                  return (
+                    <tr key={score.id}>
+                      <td>{scores.indexOf(score) + 1}</td>
+                      <td>{score.username}</td>
+                      <td>{score.time}</td>
+                      <td>{score.createdAt}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           )}
         </div>
       </div>
