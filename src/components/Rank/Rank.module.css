@@ -54,3 +54,7 @@ td {
   text-align: center;
   height: 24px;
 }
+
+.selectedScore {
+  background-color: #7aa2f742;
+}

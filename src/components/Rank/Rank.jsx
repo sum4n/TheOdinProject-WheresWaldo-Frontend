@@ -58,11 +58,18 @@ function Rank() {
 
                 {scores.map((score) => {
                   return (
-                    <tr key={score.id}>
+                    <tr
+                      key={score.id}
+                      className={
+                        state && state.username === score.username
+                          ? styles.selectedScore
+                          : undefined
+                      }
+                    >
                       <td>{scores.indexOf(score) + 1}</td>
                       <td>{score.username}</td>
                       <td>{score.time}</td>
-                      <td>{score.createdAt}</td>
+                      <td>{score.createdAt.substring(0, 10)}</td>
                     </tr>
                   );
                 })}
