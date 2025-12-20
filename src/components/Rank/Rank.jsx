@@ -1,18 +1,12 @@
 import { useEffect, useState } from "react";
-import {
-  Link,
-  useLocation,
-  useOutletContext,
-  useParams,
-  useNavigate,
-} from "react-router";
+import { Link, useLocation, useOutletContext, useParams } from "react-router";
+import Header from "../Header/Header";
+import styles from "./Rank.module.css";
 
 function Rank() {
   const [scores, setScores] = useState();
   const { state } = useLocation();
   // console.log(state);
-
-  let navigate = useNavigate();
 
   const { boardId } = useParams();
 
@@ -29,54 +23,50 @@ function Rank() {
 
   const { boardList } = useOutletContext();
 
-  function handleBoardChange(e) {
-    console.log(e.target.value);
-    const boardId = e.target.value;
-    navigate(`/ranking/${boardId}`);
-  }
-
   return (
     <>
-      <form method="get">
-        <label htmlFor="boards">Choose a board: </label>
-        <select
-          name="boards"
-          id="boards"
-          onChange={handleBoardChange}
-          value={boardId}
-        >
+      <Header />
+      <div className={styles.mainContent}>
+        <div className={styles.boardNameContainer}>
           {boardList.map((board) => {
             return (
-              <option key={board.id} value={board.id}>
+              <Link
+                key={board.id}
+                to={`/ranking/${board.id}`}
+                className={`${styles.boardName} ${
+                  board.id == boardId && styles.boardSelected
+                }`}
+              >
                 {board.name}
-              </option>
+              </Link>
             );
           })}
-        </select>
-      </form>
-
-      <p>Rank:</p>
-      {!scores && <p>Loading...</p>}
-      {scores && scores.length === 0 && <p>No ranking found...</p>}
-      {scores && scores.length > 0 && (
-        <ol>
-          {scores.map((score) => {
-            return (
-              <li key={score.id}>
-                {state && score.username == state.username ? (
-                  <p style={{ textDecoration: "underline" }}>
-                    {score.username} - {score.time}{" "}
-                  </p>
-                ) : (
-                  <p>
-                    {score.username} - {score.time}
-                  </p>
-                )}
-              </li>
-            );
-          })}
-        </ol>
-      )}
+        </div>
+        <div className={styles.scoreContainer}>
+          <p>Rank:</p>
+          {!scores && <p>Loading...</p>}
+          {scores && scores.length === 0 && <p>No ranking found...</p>}
+          {scores && scores.length > 0 && (
+            <ol>
+              {scores.map((score) => {
+                return (
+                  <li key={score.id}>
+                    {state && score.username == state.username ? (
+                      <p style={{ textDecoration: "underline" }}>
+                        {score.username} - {score.time}{" "}
+                      </p>
+                    ) : (
+                      <p>
+                        {score.username} - {score.time}
+                      </p>
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          )}
+        </div>
+      </div>
       <Link to={"/"}>Start new game</Link>
     </>
   );
