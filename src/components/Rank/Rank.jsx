@@ -4,7 +4,8 @@ import Header from "../Header/Header";
 import styles from "./Rank.module.css";
 
 function Rank() {
-  const [scores, setScores] = useState();
+  const [scores, setScores] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { state } = useLocation();
   // console.log(state);
 
@@ -18,7 +19,8 @@ function Rank() {
       .then((data) => {
         // console.log(data);
         setScores(data.scores);
-      });
+      })
+      .finally(() => setLoading(false));
   }, [boardId]);
 
   const { boardList } = useOutletContext();
@@ -64,9 +66,9 @@ function Rank() {
             )}
           </div>
 
-          {!scores && <p>Loading...</p>}
-          {scores && scores.length === 0 && <p>No ranking found...</p>}
-          {scores && scores.length > 0 && (
+          {loading && <p>Loading...</p>}
+          {scores.length === 0 && <p>No ranking found...</p>}
+          {scores.length > 0 && (
             <table>
               <thead>
                 <tr>
