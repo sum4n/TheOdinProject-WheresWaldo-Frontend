@@ -12,6 +12,9 @@ function Rank() {
   const boardId = Number(useParams().boardId);
 
   useEffect(() => {
+    setScores([]);
+    setLoading(true);
+
     fetch(`http://localhost:3000/api/gameboards/${boardId}/score`, {
       credentials: "include",
     })
@@ -53,7 +56,7 @@ function Rank() {
         </div>
         <div className={styles.scoreContainer}>
           <div className={styles.currentBoardBanner}>
-            {currentBoard && (
+            {!loading && currentBoard && (
               <>
                 <img
                   src={currentBoard.imgUrl}
@@ -71,7 +74,7 @@ function Rank() {
           </div>
 
           {loading && <p>Loading...</p>}
-          {scores.length === 0 && <p>No ranking found...</p>}
+          {!loading && scores.length === 0 && <p>No ranking found...</p>}
           {scores.length > 0 && (
             <table>
               <thead>
