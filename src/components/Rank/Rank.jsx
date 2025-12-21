@@ -37,7 +37,7 @@ function Rank() {
                 key={board.id}
                 to={`/ranking/${board.id}`}
                 className={`${styles.boardName} ${
-                  board.id == boardId && styles.boardSelected
+                  board.id == boardId ? styles.boardSelected : undefined
                 }`}
               >
                 {board.name}
@@ -68,14 +68,15 @@ function Rank() {
           {scores && scores.length === 0 && <p>No ranking found...</p>}
           {scores && scores.length > 0 && (
             <table>
-              <tbody>
+              <thead>
                 <tr>
                   <th>Rank</th>
                   <th>Player</th>
                   <th>Time</th>
                   <th>Date</th>
                 </tr>
-
+              </thead>
+              <tbody>
                 {scores.map((score) => {
                   return (
                     <tr
