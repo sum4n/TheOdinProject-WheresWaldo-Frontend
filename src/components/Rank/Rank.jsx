@@ -15,11 +15,15 @@ function Rank() {
     fetch(`http://localhost:3000/api/gameboards/${boardId}/score`, {
       credentials: "include",
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch scores");
+        return res.json();
+      })
       .then((data) => {
         // console.log(data);
         setScores(data.scores);
       })
+      .catch(() => setScores([]))
       .finally(() => setLoading(false));
   }, [boardId]);
 
@@ -92,7 +96,8 @@ function Rank() {
                       <td>{index + 1}</td>
                       <td>{score.username}</td>
                       <td>{score.time}</td>
-                      <td>{score.createdAt.substring(0, 10)}</td>
+                      {/* <td>{score.createdAt.substring(0, 10)}</td> */}
+                      <td>{new Date(score.createdAt).toDateString()}</td>
                     </tr>
                   );
                 })}
