@@ -22,6 +22,9 @@ function Rank() {
   }, [boardId]);
 
   const { boardList } = useOutletContext();
+  // console.log(boardList);
+
+  const currentBoard = boardList.find((board) => board.id == boardId);
 
   return (
     <>
@@ -43,7 +46,24 @@ function Rank() {
           })}
         </div>
         <div className={styles.scoreContainer}>
-          <p>Rank:</p>
+          <div className={styles.currentBoardBanner}>
+            {currentBoard && (
+              <>
+                <img
+                  src={currentBoard.imgUrl}
+                  alt={currentBoard.name}
+                  className={styles.currentBoardImg}
+                />
+                <Link
+                  to={`/boards/${currentBoard.name}`}
+                  className={styles.currentBoardLink}
+                >
+                  Play
+                </Link>
+              </>
+            )}
+          </div>
+
           {!scores && <p>Loading...</p>}
           {scores && scores.length === 0 && <p>No ranking found...</p>}
           {scores && scores.length > 0 && (
@@ -78,7 +98,6 @@ function Rank() {
           )}
         </div>
       </div>
-      <Link to={"/"}>Start new game</Link>
     </>
   );
 }
