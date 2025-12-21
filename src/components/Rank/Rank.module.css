@@ -58,3 +58,42 @@ td {
 .selectedScore {
   background-color: #7aa2f742;
 }
+
+.currentBoardBanner {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #ddd;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.currentBoardImg {
+  border-radius: 8px;
+  width: 200px;
+  height: 150px;
+}
+
+.currentBoardLink {
+  position: fixed;
+  right: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  background-color: #ad8ee6;
+  text-decoration: none;
+  font-weight: bold;
+
+  border: 2px solid #ad8ee6;
+  border-radius: 6px;
+
+  height: 36px;
+  width: 100px;
+}
+
+.currentBoardLink:hover {
+  color: #ad8ee6;
+  background-color: black;
+}
