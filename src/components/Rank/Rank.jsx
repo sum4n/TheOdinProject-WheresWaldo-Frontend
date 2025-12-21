@@ -77,7 +77,7 @@ function Rank() {
                 </tr>
               </thead>
               <tbody>
-                {scores.map((score) => {
+                {scores.map((score, index) => {
                   return (
                     <tr
                       key={score.id}
@@ -87,7 +87,7 @@ function Rank() {
                           : undefined
                       }
                     >
-                      <td>{scores.indexOf(score) + 1}</td>
+                      <td>{index + 1}</td>
                       <td>{score.username}</td>
                       <td>{score.time}</td>
                       <td>{score.createdAt.substring(0, 10)}</td>
