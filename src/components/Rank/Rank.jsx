@@ -91,7 +91,7 @@ function Rank() {
                     <tr
                       key={score.id}
                       className={
-                        state && state.username === score.username
+                        state?.scoreId === score.id
                           ? styles.selectedScore
                           : undefined
                       }
@@ -99,7 +99,6 @@ function Rank() {
                       <td>{index + 1}</td>
                       <td>{score.username}</td>
                       <td>{score.time}</td>
-                      {/* <td>{score.createdAt.substring(0, 10)}</td> */}
                       <td>{new Date(score.createdAt).toDateString()}</td>
                     </tr>
                   );
