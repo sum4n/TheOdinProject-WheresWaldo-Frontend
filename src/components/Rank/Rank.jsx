@@ -8,7 +8,7 @@ function Rank() {
   const { state } = useLocation();
   // console.log(state);
 
-  const { boardId } = useParams();
+  const boardId = Number(useParams().boardId);
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/gameboards/${boardId}/score`, {
@@ -24,7 +24,7 @@ function Rank() {
   const { boardList } = useOutletContext();
   // console.log(boardList);
 
-  const currentBoard = boardList.find((board) => board.id == boardId);
+  const currentBoard = boardList.find((board) => board.id === boardId);
 
   return (
     <>
@@ -37,7 +37,7 @@ function Rank() {
                 key={board.id}
                 to={`/ranking/${board.id}`}
                 className={`${styles.boardName} ${
-                  board.id == boardId ? styles.boardSelected : undefined
+                  board.id === boardId ? styles.boardSelected : undefined
                 }`}
               >
                 {board.name}
