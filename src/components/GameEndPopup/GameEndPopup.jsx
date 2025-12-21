@@ -39,7 +39,7 @@ function GameEndPopup({ boardObject }) {
         // console.log(data);
         if (data.message == "success") {
           navigate(`/ranking/${boardObject.id}`, {
-            state: { username: username },
+            state: { scoreId: data.score.id },
           });
           console.log("score saved");
         } else {
