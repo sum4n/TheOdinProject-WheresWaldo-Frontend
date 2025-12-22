@@ -1,5 +1,6 @@
 import { Link, useOutletContext } from "react-router";
 import Header from "../Header/Header";
+import styles from "./GameBoardSelection.module.css";
 
 function BoardSelection() {
   const { boardList } = useOutletContext();
@@ -9,21 +10,39 @@ function BoardSelection() {
     <>
       <Header />
       <h1>Select a board to play</h1>
-      {!boardList ? (
-        <p>No board</p>
-      ) : (
-        boardList.map((object) => {
-          return (
-            <Link to={`/boards/${object.name}`} key={object.id}>
-              <img
-                style={{ width: "200px", height: "200px" }}
+      <div className={styles.boardListContainer}>
+        {!boardList ? (
+          <p>No board</p>
+        ) : (
+          boardList.map((object) => {
+            return (
+              <Link
+                className={styles.boardLink}
+                to={`/boards/${object.name}`}
                 key={object.id}
-                src={object.imgUrl}
-              />
-            </Link>
-          );
-        })
-      )}
+              >
+                <img
+                  className={styles.boardImg}
+                  key={object.id}
+                  src={object.imgUrl}
+                />
+                <div>
+                  {object.characters.map((character) => {
+                    return (
+                      <img
+                        key={character.id}
+                        className={styles.characterImg}
+                        src={character.imgUrl}
+                        alt={character.name}
+                      />
+                    );
+                  })}
+                </div>
+              </Link>
+            );
+          })
+        )}
+      </div>
     </>
   );
 }
