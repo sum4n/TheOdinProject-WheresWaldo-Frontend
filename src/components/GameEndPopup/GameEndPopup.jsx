@@ -13,7 +13,7 @@ function GameEndPopup({ boardObject }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setResultData(data);
       });
   }, [boardObject.id]);
@@ -41,7 +41,7 @@ function GameEndPopup({ boardObject }) {
           navigate(`/ranking/${boardObject.id}`, {
             state: { scoreId: data.score.id },
           });
-          console.log("score saved");
+          // console.log("score saved");
         } else {
           setErrors(data.message[0]);
         }

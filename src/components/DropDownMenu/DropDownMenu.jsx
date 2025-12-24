@@ -22,7 +22,7 @@ function DropDownMenu({
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setClickResult(data);
         if (data.success) {
           handleCharacterFound(clickPosition, data.name, data.timeElapsed);
