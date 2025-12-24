@@ -25,13 +25,12 @@ function DropDownMenu({
       .then((data) => {
         console.log(data);
         setClickResult(data);
-        if (data.gameEnd) {
-          handleCharacterFound(clickPosition, data.name);
-          setGameEnd(true);
-          setTimeTaken(data.timeElapsed);
-        }
         if (data.success) {
           handleCharacterFound(clickPosition, data.name, data.timeElapsed);
+        }
+        if (data.gameEnd) {
+          setGameEnd(true);
+          setTimeTaken(data.timeElapsed);
         }
       });
   }
