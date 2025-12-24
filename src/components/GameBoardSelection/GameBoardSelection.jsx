@@ -11,7 +11,7 @@ function BoardSelection() {
       <Header />
       <h1>Select a board to play</h1>
       <div className={styles.boardListContainer}>
-        {!boardList ? (
+        {boardList.length === 0 ? (
           <p>No board</p>
         ) : (
           boardList.map((object) => {
@@ -23,8 +23,8 @@ function BoardSelection() {
               >
                 <img
                   className={styles.boardImg}
-                  key={object.id}
                   src={object.imgUrl}
+                  alt={object.name}
                 />
                 <div>
                   {object.characters.map((character) => {
