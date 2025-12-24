@@ -12,22 +12,22 @@ function BoardSelection() {
       <h1>Select a board to play</h1>
       <div className={styles.boardListContainer}>
         {boardList.length === 0 ? (
-          <p>No board</p>
+          <p>Loading boards...</p>
         ) : (
-          boardList.map((object) => {
+          boardList.map((board) => {
             return (
               <Link
                 className={styles.boardLink}
-                to={`/boards/${object.name}`}
-                key={object.id}
+                to={`/boards/${board.name}`}
+                key={board.id}
               >
                 <img
                   className={styles.boardImg}
-                  src={object.imgUrl}
-                  alt={object.name}
+                  src={board.imgUrl}
+                  alt={board.name}
                 />
                 <div>
-                  {object.characters.map((character) => {
+                  {board.characters.map((character) => {
                     return (
                       <img
                         key={character.id}
