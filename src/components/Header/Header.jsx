@@ -6,9 +6,8 @@ function Header({ characters, gameEnd }) {
   const [timeCounter, setTimeCounter] = useState(0);
 
   useEffect(() => {
-    if (gameEnd) {
-      return;
-    }
+    if (gameEnd) return;
+
     const key = setInterval(() => {
       setTimeCounter((count) => count + 1);
     }, 1000);
@@ -21,11 +20,7 @@ function Header({ characters, gameEnd }) {
   return (
     <div className={styles.container}>
       <Link to="/" className={styles.links}>
-        <img
-          src="/logo/Site-logo.webp"
-          alt="game logo"
-          style={{ height: "48px" }}
-        />
+        <img src="/logo/Site-logo.webp" alt="game logo" />
         <span>Where's Waldo</span>
       </Link>
 
@@ -37,16 +32,14 @@ function Header({ characters, gameEnd }) {
               return (
                 <div key={character.id} className={styles.characterContainer}>
                   <img
-                    key={character.id}
                     src={character.imgUrl}
                     alt={character.name}
-                    style={{ height: "38px", width: "38px" }}
-                    className={character.found && styles.found}
+                    className={character.found ? styles.found : undefined}
                   />
                   {character.found && (
                     <>
                       <p className={styles.time}>{character.timeTaken}s</p>
-                      <p className={styles.tickmark}>&#10060;</p>
+                      <p className={styles.tickmark}>&#10003;</p>
                     </>
                   )}
                 </div>
