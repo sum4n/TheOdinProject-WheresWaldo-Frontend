@@ -10,15 +10,14 @@ function DropDownMenu({
   setTimeTaken,
   setClickResult,
 }) {
-  function clickHandler(e) {
-    console.log(location);
-    console.log(e.currentTarget.textContent);
+  function clickHandler(character) {
+    // console.log(location);
 
     // Close dropdown on click
     toggleDropDown();
 
     fetch(
-      `http://localhost:3000/api/characters/check/${e.currentTarget.id}?x=${location.left}&y=${location.top}`,
+      `http://localhost:3000/api/characters/check/${character.name}?x=${location.left}&y=${location.top}`,
       { credentials: "include" }
     )
       .then((response) => response.json())
@@ -47,7 +46,7 @@ function DropDownMenu({
               key={character.id}
               id={character.name}
               className={styles.selection}
-              onClick={clickHandler}
+              onClick={() => clickHandler(character)}
             >
               <img
                 className={styles.characterImg}
