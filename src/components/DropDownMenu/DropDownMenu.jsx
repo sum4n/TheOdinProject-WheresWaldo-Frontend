@@ -31,7 +31,8 @@ function DropDownMenu({
           setGameEnd(true);
           setTimeTaken(data.timeElapsed);
         }
-      });
+      })
+      .catch(() => setClickResult({ success: false }));
   }
 
   return (
