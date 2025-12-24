@@ -104,7 +104,11 @@ function GameBoard() {
 
   return (
     <>
-      <Header characters={characters} gameEnd={gameEnd} />
+      <Header
+        characters={characters}
+        gameEnd={gameEnd}
+        boardId={boardObject && boardObject.id}
+      />
       <div className={styles.container}>
         {/* this condition is needed, else page refresh will cause error. */}
         {boardObject ? (

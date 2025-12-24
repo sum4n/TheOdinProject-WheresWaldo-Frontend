@@ -8,7 +8,7 @@ function BoardSelection() {
 
   return (
     <>
-      <Header />
+      <Header boardId={boardList.length > 0 ? boardList[0].id : undefined} />
       <h1>Select a board to play</h1>
       <div className={styles.boardListContainer}>
         {boardList.length === 0 ? (

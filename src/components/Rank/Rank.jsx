@@ -37,7 +37,7 @@ function Rank() {
 
   return (
     <>
-      <Header />
+      <Header boardId={boardId} />
       <div className={styles.mainContent}>
         <div className={styles.boardNameContainer}>
           {boardList.map((board) => {
