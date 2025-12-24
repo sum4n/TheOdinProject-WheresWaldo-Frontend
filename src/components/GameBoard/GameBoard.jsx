@@ -19,18 +19,15 @@ function GameBoard() {
 
   // get name of the board from the url parameter.
   const { boardname } = useParams();
-  console.log(boardname);
+  // console.log(boardname);
 
   // get list of boards
   const { boardList } = useOutletContext();
 
   // find the specific board to play
-  let boardObject;
   // this condition is needed, else page refresh will cause error.
   // find board from list of boards.
-  if (boardList && boardList.length > 0) {
-    boardObject = boardList.find((board) => board.name == boardname);
-  }
+  const boardObject = boardList?.find((board) => board.name == boardname);
   // console.log(boardList);
 
   // get board characters
@@ -43,7 +40,7 @@ function GameBoard() {
         .then((response) => response.json())
         .then((data) => {
           setCharacters(data);
-          console.log(data);
+          // console.log(data);
         });
     }
   }, [boardObject]);
@@ -51,7 +48,7 @@ function GameBoard() {
   function handleCharacterFound(location, name, timeTaken) {
     // set location of the discovered character
     setCharacterLocations([...characterLocations, location]);
-    console.log(characters);
+    // console.log(characters);
     // remove the character from the dropdown list
     // add custom found property to individual character when discovered
     setCharacters((prev) =>
