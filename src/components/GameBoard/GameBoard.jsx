@@ -45,6 +45,15 @@ function GameBoard() {
     }
   }, [boardObject]);
 
+  useEffect(() => {
+    if (clickResult) {
+      const timeout = setTimeout(() => setClickResult(null), 1000);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, [clickResult]);
+
   function handleCharacterFound(location, name, timeTaken) {
     // set location of the discovered character
     setCharacterLocations([...characterLocations, location]);
