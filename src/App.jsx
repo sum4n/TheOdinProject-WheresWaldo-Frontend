@@ -4,7 +4,6 @@ import { Outlet } from "react-router";
 
 function App() {
   const [boardList, setBoardList] = useState([]);
-  const [clickResult, setClickResult] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:3000/api/gameboards", { credentials: "include" })
@@ -14,15 +13,6 @@ function App() {
         setBoardList(data);
       });
   }, []);
-
-  useEffect(() => {
-    if (clickResult) {
-      const timeout = setTimeout(() => setClickResult(null), 1000);
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-  });
 
   return <Outlet context={{ boardList }} />;
 }
