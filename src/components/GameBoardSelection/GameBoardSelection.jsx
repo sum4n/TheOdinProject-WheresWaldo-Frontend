@@ -3,7 +3,7 @@ import Header from "../Header/Header";
 import styles from "./GameBoardSelection.module.css";
 
 function BoardSelection() {
-  const { boardList } = useOutletContext();
+  const { boardList, error, loading } = useOutletContext();
   // console.log(boardList);
 
   return (
@@ -11,9 +11,13 @@ function BoardSelection() {
       <Header boardId={boardList.length > 0 ? boardList[0].id : undefined} />
       <h1>Select a board to play</h1>
       <div className={styles.boardListContainer}>
-        {boardList.length === 0 ? (
-          <p>Loading boards...</p>
-        ) : (
+        {error && <p>A network error has been encountered</p>}
+        {!error && loading && <p>Loading boards...</p>}
+        {!loading && !error && boardList.length === 0 && (
+          <p>No boards available</p>
+        )}
+        {!error &&
+          !loading &&
           boardList.map((board) => {
             return (
               <Link
@@ -40,8 +44,7 @@ function BoardSelection() {
                 </div>
               </Link>
             );
-          })
-        )}
+          })}
       </div>
     </>
   );
