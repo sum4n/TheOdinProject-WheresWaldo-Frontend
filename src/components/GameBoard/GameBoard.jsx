@@ -22,7 +22,7 @@ function GameBoard() {
   // console.log(boardname);
 
   // get list of boards
-  const { boardList } = useOutletContext();
+  const { boardList, loading, error } = useOutletContext();
 
   // find the specific board to play
   // this condition is needed, else page refresh will cause error.
@@ -106,6 +106,33 @@ function GameBoard() {
     // console.log({ scaleX, scaleY });
     // console.log(`The actual click position: ${actualX}px X, ${actualY}px Y`);
     // console.log(percentX, percentY);
+  }
+
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <p>Loading board...</p>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Header />
+        <p>{error.message}</p>
+      </>
+    );
+  }
+
+  if (!boardObject) {
+    return (
+      <>
+        <Header />
+        <p>Board not found</p>
+      </>
+    );
   }
 
   return (
