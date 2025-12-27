@@ -18,9 +18,6 @@ function DropDownMenu({
     // console.log(location);
     if (characterCheck) return;
 
-    // Close dropdown on click
-    toggleDropDown();
-
     setCharacterCheck(true);
     setFetchError(null);
 
@@ -37,6 +34,7 @@ function DropDownMenu({
       .then((data) => {
         // console.log(data);
         setClickResult(data);
+        toggleDropDown(); // close dropdown on fetching without error.
         if (data.success) {
           handleCharacterFound(clickPosition, data.name, data.timeElapsed);
         }
