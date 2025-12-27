@@ -13,6 +13,7 @@
   height: 80px;
   width: 80px;
   border: 1px solid black;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,9 +28,25 @@
 .characterImg {
   height: 100%;
   width: 100%;
+  border-radius: 8px;
 }
 
 .characterImg:hover {
   height: 95%;
   width: 95%;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.errorMsg {
+  background-color: red;
+  color: black;
+}
+
+.checkMsg {
+  background-color: black;
+  color: white;
 }
