@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./DropDownMenu.module.css";
 
 function DropDownMenu({
@@ -10,17 +11,29 @@ function DropDownMenu({
   setTimeTaken,
   setClickResult,
 }) {
+  const [characterCheck, setCharacterCheck] = useState(false);
+  const [fetchError, setFetchError] = useState(null);
+
   function clickHandler(character) {
     // console.log(location);
+    if (characterCheck) return;
 
     // Close dropdown on click
     toggleDropDown();
+
+    setCharacterCheck(true);
+    setFetchError(null);
 
     fetch(
       `http://localhost:3000/api/characters/check/${character.name}?x=${location.left}&y=${location.top}`,
       { credentials: "include" }
     )
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status >= 400) {
+          throw new Error("Server error");
+        }
+        return response.json();
+      })
       .then((data) => {
         // console.log(data);
         setClickResult(data);
@@ -32,7 +45,8 @@ function DropDownMenu({
           setTimeTaken(data.timeElapsed);
         }
       })
-      .catch(() => setClickResult({ success: false }));
+      .catch((error) => setFetchError(error))
+      .finally(() => setCharacterCheck(false));
   }
 
   return (
@@ -40,6 +54,11 @@ function DropDownMenu({
       style={{ left: `${clickPosition.left}%`, top: `${clickPosition.top}%` }}
       className={styles.container}
     >
+      {characterCheck && <p className={styles.checkMsg}>Checking...</p>}
+      {fetchError && <p className={styles.errorMsg}>{fetchError.message}</p>}
+      {!characterCheck && !fetchError && (
+        <p className={styles.checkMsg}>Select:</p>
+      )}
       {characterList.map((character) => {
         if (!character.found) {
           return (
