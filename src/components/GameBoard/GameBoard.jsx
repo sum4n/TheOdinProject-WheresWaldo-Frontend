@@ -16,6 +16,8 @@ function GameBoard() {
   const [timeTaken, setTimeTaken] = useState(null);
   const [clickResult, setClickResult] = useState(null);
   const [characters, setCharacters] = useState([]);
+  const [charLoading, setCharLoading] = useState(true);
+  const [charError, setCharError] = useState(null);
 
   // get name of the board from the url parameter.
   const { boardname } = useParams();
@@ -37,11 +39,18 @@ function GameBoard() {
       fetch(`http://localhost:3000/api/${boardObject.id}/characters`, {
         credentials: "include",
       })
-        .then((response) => response.json())
+        .then((response) => {
+          if (response.status >= 400) {
+            throw new Error("Failed to load characters");
+          }
+          return response.json();
+        })
         .then((data) => {
           setCharacters(data);
           // console.log(data);
-        });
+        })
+        .catch((error) => setCharError(error))
+        .finally(() => setCharLoading(false));
     }
   }, [boardObject]);
 
@@ -143,18 +152,15 @@ function GameBoard() {
         boardId={boardObject && boardObject.id}
       />
       <div className={styles.container}>
-        {/* this condition is needed, else page refresh will cause error. */}
-        {boardObject ? (
+        {charLoading && <p>Loading characters...</p>}
+        {charError && <p>{charError.message}</p>}
+        {!charLoading && !charError && (
           <img
             className={styles.boardImg}
             src={boardObject.imgUrl}
             alt={boardObject.name + " board"}
             onClick={clickImgHandler}
           />
-        ) : (
-          <p>
-            No board found. <Link to="/boards">Go to board selection</Link>
-          </p>
         )}
         {!showDropDown ? null : (
           <div>
