@@ -11,7 +11,7 @@ function App() {
     fetch("http://localhost:3000/api/gameboards", { credentials: "include" })
       .then((response) => {
         if (response.status >= 400) {
-          throw new Error("server error");
+          throw new Error("Failed to load game boards");
         }
         return response.json();
       })

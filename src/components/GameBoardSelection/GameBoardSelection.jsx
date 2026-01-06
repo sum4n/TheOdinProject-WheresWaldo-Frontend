@@ -11,7 +11,7 @@ function BoardSelection() {
       <Header boardId={boardList.length > 0 ? boardList[0].id : undefined} />
       <h1>Select a board to play</h1>
       <div className={styles.boardListContainer}>
-        {error && <p>A network error has been encountered</p>}
+        {error && <p>{error.message}</p>}
         {!error && loading && <p>Loading boards...</p>}
         {!loading && !error && boardList.length === 0 && (
           <p>No boards available</p>
