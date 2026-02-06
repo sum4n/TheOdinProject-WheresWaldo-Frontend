@@ -15,7 +15,7 @@ function Rank() {
     setScores([]);
     setLoading(true);
 
-    fetch(`http://localhost:3000/api/gameboards/${boardId}/score`, {
+    fetch(`${import.meta.env.VITE_BASE_URL}/api/gameboards/${boardId}/score`, {
       credentials: "include",
     })
       .then((res) => {

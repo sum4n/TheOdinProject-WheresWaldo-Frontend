@@ -22,8 +22,8 @@ function DropDownMenu({
     setFetchError(null);
 
     fetch(
-      `http://localhost:3000/api/characters/check/${character.name}?x=${location.left}&y=${location.top}`,
-      { credentials: "include" }
+      `${import.meta.env.VITE_BASE_URL}/api/characters/check/${character.name}?x=${location.left}&y=${location.top}`,
+      { credentials: "include" },
     )
       .then((response) => {
         if (response.status >= 400) {

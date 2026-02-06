@@ -8,9 +8,12 @@ function GameEndPopup({ boardObject }) {
   const [resultData, setResultData] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/gameboards/${boardObject.id}/score`, {
-      credentials: "include",
-    })
+    fetch(
+      `${import.meta.env.VITE_BASE_URL}/api/gameboards/${boardObject.id}/rank`,
+      {
+        credentials: "include",
+      },
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -26,14 +29,17 @@ function GameEndPopup({ boardObject }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch(`http://localhost:3000/api/gameboards/${boardObject.id}/score`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    fetch(
+      `${import.meta.env.VITE_BASE_URL}/api/gameboards/${boardObject.id}/score`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: username }),
+        credentials: "include",
       },
-      body: JSON.stringify({ username: username }),
-      credentials: "include",
-    })
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);

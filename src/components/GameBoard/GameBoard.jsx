@@ -36,9 +36,12 @@ function GameBoard() {
   useEffect(() => {
     // if - prevents error in page refresh
     if (boardObject) {
-      fetch(`http://localhost:3000/api/${boardObject.id}/characters`, {
-        credentials: "include",
-      })
+      fetch(
+        `${import.meta.env.VITE_BASE_URL}/api/${boardObject.id}/characters`,
+        {
+          credentials: "include",
+        },
+      )
         .then((response) => {
           if (response.status >= 400) {
             throw new Error("Failed to load characters");
@@ -73,8 +76,8 @@ function GameBoard() {
       prev.map((character) =>
         character.name === name
           ? { ...character, found: true, timeTaken: timeTaken }
-          : character
-      )
+          : character,
+      ),
     );
   }
 

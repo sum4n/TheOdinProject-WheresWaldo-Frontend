@@ -8,7 +8,9 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/gameboards", { credentials: "include" })
+    fetch(`${import.meta.env.VITE_BASE_URL}/api/gameboards`, {
+      credentials: "include",
+    })
       .then((response) => {
         if (response.status >= 400) {
           throw new Error("Failed to load game boards");
