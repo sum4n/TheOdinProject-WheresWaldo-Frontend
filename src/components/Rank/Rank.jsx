@@ -78,7 +78,10 @@ function Rank() {
           </div>
 
           {loading && <p>Loading...</p>}
-          {!loading && scores.length === 0 && <p>No ranking found...</p>}
+          {error && <p>{error.message}</p>}
+          {!loading && !error && scores.length === 0 && (
+            <p>No ranking found...</p>
+          )}
           {scores.length > 0 && (
             <table>
               <thead>
