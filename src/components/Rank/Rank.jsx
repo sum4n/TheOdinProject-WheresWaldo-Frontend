@@ -6,6 +6,8 @@ import styles from "./Rank.module.css";
 function Rank() {
   const [scores, setScores] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const { state } = useLocation();
   // console.log(state);
 
@@ -19,14 +21,16 @@ function Rank() {
       credentials: "include",
     })
       .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch scores");
+        if (Response.status >= 400) {
+          throw new Error("Failed to fetch scores");
+        }
         return res.json();
       })
       .then((data) => {
         // console.log(data);
         setScores(data.scores);
       })
-      .catch(() => setScores([]))
+      .catch((error) => setError(error))
       .finally(() => setLoading(false));
   }, [boardId]);
 
