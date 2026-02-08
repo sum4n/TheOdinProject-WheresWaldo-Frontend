@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./DropDownMenu.module.css";
 
 function DropDownMenu({
+  boardId,
   clickPosition,
   location,
   toggleDropDown,
@@ -22,7 +23,7 @@ function DropDownMenu({
     setFetchError(null);
 
     fetch(
-      `${import.meta.env.VITE_BASE_URL}/api/characters/check/${character.name}?x=${location.left}&y=${location.top}`,
+      `${import.meta.env.VITE_BASE_URL}/api/game/${boardId}/characters/${character.id}?left=${location.left}&top=${location.top}`,
       { credentials: "include" },
     )
       .then((response) => {
@@ -36,9 +37,13 @@ function DropDownMenu({
         setClickResult(data);
         toggleDropDown(); // close dropdown on fetching without error.
         if (data.success) {
-          handleCharacterFound(clickPosition, data.name, data.timeElapsed);
+          handleCharacterFound(
+            clickPosition,
+            data.characterName,
+            data.timeElapsed,
+          );
         }
-        if (data.gameEnd) {
+        if (data.allCharactersFound) {
           setGameEnd(true);
           setTimeTaken(data.timeElapsed);
         }
