@@ -33,7 +33,7 @@ function DropDownMenu({
         return response.json();
       })
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         setClickResult(data);
         toggleDropDown(); // close dropdown on fetching without error.
         if (data.success) {
