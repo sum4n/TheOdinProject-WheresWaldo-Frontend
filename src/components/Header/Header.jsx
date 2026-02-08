@@ -27,7 +27,12 @@ function Header({ characters, gameEnd, gameStart, boardId }) {
 
       {characters && (
         <>
-          <p>Time elapsed: {timeCounter} s</p>
+          {!gameStart ? (
+            <p>Game starting... please wait.</p>
+          ) : (
+            <p>Time elapsed: {timeCounter} s</p>
+          )}
+
           <div className={styles.characters}>
             {characters.map((character) => {
               return (
