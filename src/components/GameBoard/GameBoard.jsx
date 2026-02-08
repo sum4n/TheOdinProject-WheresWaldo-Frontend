@@ -17,6 +17,7 @@ function GameBoard() {
   const [clickResult, setClickResult] = useState(null);
   const [characters, setCharacters] = useState([]);
   const [charLoading, setCharLoading] = useState(true);
+  const [gameStart, setGameStart] = useState(false);
 
   // get name of the board from the url parameter.
   const { boardname } = useParams();
@@ -45,7 +46,12 @@ function GameBoard() {
           }
           return response.json();
         })
-        .then((data) => console.log(data));
+        .then((data) => {
+          console.log(data);
+          if (data.message === "Game started") {
+            setGameStart(true);
+          }
+        });
 
       setCharacters(boardObject.characters);
       setCharLoading(false);
@@ -159,7 +165,7 @@ function GameBoard() {
             onClick={clickImgHandler}
           />
         )}
-        {!showDropDown ? null : (
+        {!showDropDown || !gameStart || gameEnd ? null : (
           <div>
             <DropDownMenu
               boardId={boardObject.id}
