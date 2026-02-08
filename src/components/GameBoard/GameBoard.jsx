@@ -36,24 +36,20 @@ function GameBoard() {
   useEffect(() => {
     // if - prevents error in page refresh
     if (boardObject) {
-      fetch(
-        `${import.meta.env.VITE_BASE_URL}/api/${boardObject.id}/characters`,
-        {
-          credentials: "include",
-        },
-      )
+      // start the game
+      fetch(`${import.meta.env.VITE_BASE_URL}/api/game/${boardObject.id}`, {
+        credentials: "include",
+      })
         .then((response) => {
           if (response.status >= 400) {
-            throw new Error("Failed to load characters");
+            throw new Error("Failed to start the game...");
           }
           return response.json();
         })
-        .then((data) => {
-          setCharacters(data);
-          // console.log(data);
-        })
-        .catch((error) => setCharError(error))
-        .finally(() => setCharLoading(false));
+        .then((data) => console.log(data));
+
+      setCharacters(boardObject.characters);
+      setCharLoading(false);
     }
   }, [boardObject]);
 
