@@ -17,7 +17,6 @@ function GameBoard() {
   const [clickResult, setClickResult] = useState(null);
   const [characters, setCharacters] = useState([]);
   const [charLoading, setCharLoading] = useState(true);
-  const [charError, setCharError] = useState(null);
 
   // get name of the board from the url parameter.
   const { boardname } = useParams();
@@ -152,8 +151,7 @@ function GameBoard() {
       />
       <div className={styles.container}>
         {charLoading && <p>Loading characters...</p>}
-        {charError && <p>{charError.message}</p>}
-        {!charLoading && !charError && (
+        {!charLoading && (
           <img
             className={styles.boardImg}
             src={boardObject.imgUrl}
@@ -164,6 +162,7 @@ function GameBoard() {
         {!showDropDown ? null : (
           <div>
             <DropDownMenu
+              boardId={boardObject.id}
               clickPosition={clickPosition}
               location={pixelPosition}
               toggleDropDown={toggleDropDown}
