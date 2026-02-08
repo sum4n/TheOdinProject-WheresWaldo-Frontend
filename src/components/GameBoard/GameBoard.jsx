@@ -153,6 +153,7 @@ function GameBoard() {
       <Header
         characters={characters}
         gameEnd={gameEnd}
+        gameStart={gameStart}
         boardId={boardObject && boardObject.id}
       />
       <div className={styles.container}>

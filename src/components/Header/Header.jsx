@@ -2,11 +2,12 @@ import { Link } from "react-router";
 import styles from "./Header.module.css";
 import { useEffect, useState } from "react";
 
-function Header({ characters, gameEnd, boardId }) {
+function Header({ characters, gameEnd, gameStart, boardId }) {
   const [timeCounter, setTimeCounter] = useState(0);
 
   useEffect(() => {
     if (gameEnd) return;
+    if (!gameStart) return;
 
     const key = setInterval(() => {
       setTimeCounter((count) => count + 1);
@@ -15,7 +16,7 @@ function Header({ characters, gameEnd, boardId }) {
     return () => {
       clearInterval(key);
     };
-  }, [gameEnd]);
+  }, [gameEnd, gameStart]);
 
   return (
     <div className={styles.container}>
