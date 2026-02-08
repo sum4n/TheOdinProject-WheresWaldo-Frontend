@@ -59,30 +59,23 @@ function GameEndPopup({ boardObject }) {
       <p className={styles.gzText}>Congratulations!</p>
       <p className={styles.text}>You've found all characters!!</p>
       <p className={styles.text}>Time taken: {resultData.timeElapsed}s</p>
-      {resultData.rank <= 20 ? (
-        <>
-          <p className={styles.text}>Rank: {resultData.rank}</p>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Save you name on the leaderboard:</label>
-            <br />
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={username}
-              onChange={handleInput}
-              required
-            />
-            {errors && <p className={styles.error}>{errors.msg}</p>}
-            <br />
-            <input type="submit" value="Submit" />
-          </form>
-        </>
-      ) : (
-        <p>
-          You are not in top 20. You need to be in top 20 to save your score
-        </p>
-      )}
+
+      <p className={styles.text}>Rank: {resultData.rank}</p>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="username">Save you name on the leaderboard:</label>
+        <br />
+        <input
+          type="text"
+          id="username"
+          name="username"
+          value={username}
+          onChange={handleInput}
+          required
+        />
+        {errors && <p className={styles.error}>{errors.msg}</p>}
+        <br />
+        <input type="submit" value="Submit" />
+      </form>
 
       <p className={styles.linkContainer}>
         <Link to="/" className={styles.link}>
