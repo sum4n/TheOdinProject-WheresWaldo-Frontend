@@ -8,6 +8,7 @@ function GameEndPopup({ boardObject }) {
   const [resultData, setResultData] = useState({});
   const [checking, setChecking] = useState(true);
   const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     fetch(
@@ -38,6 +39,9 @@ function GameEndPopup({ boardObject }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
     fetch(
       `${import.meta.env.VITE_BASE_URL}/api/gameboards/${boardObject.id}/score`,
       {
@@ -60,7 +64,9 @@ function GameEndPopup({ boardObject }) {
         } else {
           setErrors(data.message[0]);
         }
-      });
+      })
+      .catch((error) => setError(error))
+      .finally(() => setIsSubmitting(false));
   }
 
   return (
@@ -87,7 +93,10 @@ function GameEndPopup({ boardObject }) {
         />
         {errors && <p className={styles.error}>{errors.msg}</p>}
         <br />
-        <input type="submit" value="Submit" />
+        {/* <input type="submit" value="Submit" /> */}
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit"}
+        </button>
       </form>
 
       <p className={styles.linkContainer}>
