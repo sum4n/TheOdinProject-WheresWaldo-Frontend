@@ -3,8 +3,8 @@ import styles from "./DropDownMenu.module.css";
 
 function DropDownMenu({
   boardId,
-  clickPosition,
-  location,
+  clickLocation,
+  actualLocation,
   toggleDropDown,
   characterList,
   handleCharacterFound,
@@ -16,14 +16,14 @@ function DropDownMenu({
   const [fetchError, setFetchError] = useState(null);
 
   function clickHandler(character) {
-    // console.log(location);
+    // console.log(actualLocation);
     if (characterCheck) return;
 
     setCharacterCheck(true);
     setFetchError(null);
 
     fetch(
-      `${import.meta.env.VITE_BASE_URL}/api/game/${boardId}/characters/${character.id}?left=${location.left}&top=${location.top}`,
+      `${import.meta.env.VITE_BASE_URL}/api/game/${boardId}/characters/${character.id}?left=${actualLocation.left}&top=${actualLocation.top}`,
       { credentials: "include" },
     )
       .then((response) => {
@@ -38,7 +38,7 @@ function DropDownMenu({
         toggleDropDown(); // close dropdown on fetching without error.
         if (data.success) {
           handleCharacterFound(
-            clickPosition,
+            clickLocation,
             data.characterName,
             data.timeElapsed,
           );
@@ -54,7 +54,7 @@ function DropDownMenu({
 
   return (
     <div
-      style={{ left: `${clickPosition.left}%`, top: `${clickPosition.top}%` }}
+      style={{ left: `${clickLocation.left}%`, top: `${clickLocation.top}%` }}
       className={styles.container}
     >
       {characterCheck && <p className={styles.checkMsg}>Checking...</p>}
