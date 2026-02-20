@@ -6,6 +6,8 @@ function GameEndPopup({ boardObject }) {
   const [username, setUserName] = useState("");
   const [errors, setErrors] = useState();
   const [resultData, setResultData] = useState({});
+  const [checking, setChecking] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch(
@@ -14,11 +16,18 @@ function GameEndPopup({ boardObject }) {
         credentials: "include",
       },
     )
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status >= 400) {
+          throw new Error("server error");
+        }
+        return res.json();
+      })
       .then((data) => {
         // console.log(data);
         setResultData(data);
-      });
+      })
+      .catch((error) => setError(error))
+      .finally(() => setChecking(false));
   }, [boardObject.id]);
 
   let navigate = useNavigate();
@@ -58,9 +67,13 @@ function GameEndPopup({ boardObject }) {
     <div className={styles.container}>
       <p className={styles.gzText}>Congratulations!</p>
       <p className={styles.text}>You've found all characters!!</p>
-      <p className={styles.text}>Time taken: {resultData.timeElapsed}s</p>
+      <p className={styles.text}>
+        Time taken: {checking ? "checking" : resultData.timeElapsed}s
+      </p>
 
-      <p className={styles.text}>Rank: {resultData.rank}</p>
+      <p className={styles.text}>
+        Rank: {checking ? "checking" : resultData.rank}
+      </p>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Save you name on the leaderboard:</label>
         <br />
