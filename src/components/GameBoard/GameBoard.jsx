@@ -9,8 +9,8 @@ import Header from "../Header/Header";
 
 function GameBoard() {
   const [showDropDown, setShowDropDown] = useState(false);
-  const [clickPosition, setClickPosition] = useState({ left: 0, top: 0 });
-  const [pixelPosition, setPixelPosition] = useState({ left: 0, top: 0 });
+  const [clickLocation, setClickLocation] = useState({ left: 0, top: 0 });
+  const [actualLocation, setActualLocation] = useState({ left: 0, top: 0 });
   const [characterLocations, setCharacterLocations] = useState([]);
   const [gameEnd, setGameEnd] = useState(false);
   const [timeTaken, setTimeTaken] = useState(null);
@@ -97,7 +97,7 @@ function GameBoard() {
     const percentX = ((e.clientX - rect.left) / rect.width) * 100;
     const percentY = ((e.clientY - rect.top) / rect.height) * 100;
 
-    setClickPosition({ left: percentX, top: percentY });
+    setClickLocation({ left: percentX, top: percentY });
 
     // Calculate click postion relative to the displayed image
     const x = e.clientX - rect.left;
@@ -110,7 +110,7 @@ function GameBoard() {
     const actualX = Math.round(x * scaleX);
     const actualY = Math.round(y * scaleY);
 
-    setPixelPosition({ left: actualX, top: actualY });
+    setActualLocation({ left: actualX, top: actualY });
 
     // console.log(img);
     // console.log(rect);
@@ -170,8 +170,8 @@ function GameBoard() {
           <div>
             <DropDownMenu
               boardId={boardObject.id}
-              clickPosition={clickPosition}
-              location={pixelPosition}
+              clickLocation={clickLocation}
+              actualLocation={actualLocation}
               toggleDropDown={toggleDropDown}
               characterList={characters}
               handleCharacterFound={handleCharacterFound}
@@ -179,7 +179,7 @@ function GameBoard() {
               setTimeTaken={setTimeTaken}
               setClickResult={setClickResult}
             />
-            <Marker left={clickPosition.left} top={clickPosition.top} />
+            <Marker left={clickLocation.left} top={clickLocation.top} />
           </div>
         )}
         {characterLocations.length > 0 &&
